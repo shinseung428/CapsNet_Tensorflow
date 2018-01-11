@@ -156,10 +156,14 @@ class capsule_dynamic():
 
 
 		#to check accuracy
-		self.pred_label = tf.one_hot(self.argmax_idx, self.output_dim, dtype=tf.float32)
-		correct_prediction = tf.equal(self.pred_label, self.Y)
-		self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+		# pred_label = tf.one_hot(self.argmax_idx, self.output_dim, dtype=tf.float32)
+		
+		gt = tf.cast(tf.argmax(self.Y, axis=1), tf.int32)
+		pred = self.argmax_idx
+		correct_prediction = tf.equal(pred, gt)
 
+		self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+		self.acc_summary = tf.summary.scalar("acc", self.accuracy)
 
 
 	# def train(self, args):

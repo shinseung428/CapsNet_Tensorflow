@@ -63,19 +63,31 @@ class normal_classifier():
 	# 																    )
 
 	def build_model(self):
-		self.classifier, self.layers = self.model(self.X, name="classifier")
+		self.classifier, self.classifier_logits = self.model(self.X, name="classifier")
+		self.img_summary = tf.summary.image("input", self.X, max_outputs=5)
+
 		self.trainable_vars = tf.trainable_variables()
 
 	def build_loss(self):
 		def calculate_loss(labels, logits):
 			return tf.losses.softmax_cross_entropy(labels, logits)
-		self.loss = calculate_loss(self.train_label_batch, self.classifier)
+		self.loss = tf.reduce_mean(calculate_loss(self.Y, self.classifier_logits))
+		self.loss_summary = tf.summary.scalar("loss", self.loss)
+
+		#to check accuracy
+		gt = tf.argmax(self.Y, axis=1)
+		pred = tf.argmax(self.classifier, axis=1)
+
+		correct_prediction = tf.equal(pred, gt)
+
+		self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+		self.acc_summary = tf.summary.scalar("acc", self.accuracy)
 
 
 	def model(self, input_image, name):
 		layers = []
 		with tf.variable_scope(name) as scope:
-			input = tf.reshape(self.input_image, shape=(self.batch_size, -1))
+			input = tf.reshape(input_image, shape=(self.batch_size, -1))
 			fc1 = tf.contrib.layers.fully_connected(input, num_outputs=128,
 													weights_initializer=tf.contrib.layers.xavier_initializer(),
 													activation_fn=tf.nn.relu
@@ -88,7 +100,12 @@ class normal_classifier():
 
 			fc2 = tf.contrib.layers.fully_connected(fc1, num_outputs=self.output_dim,
 													weights_initializer=tf.contrib.layers.xavier_initializer(),
-													activation_fn = tf.nn.sigmoid
 													)
 
-			return output, layers
+			output = tf.nn.softmax(fc2)
+
+			return output, fc2
+
+
+
+
