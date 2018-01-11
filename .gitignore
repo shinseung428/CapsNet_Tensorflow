@@ -1,3 +1,4 @@
 data/
 graphs/
 checkpoints/
+*.pyc
