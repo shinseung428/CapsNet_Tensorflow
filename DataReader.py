@@ -1,8 +1,10 @@
 import numpy as np
 import tensorflow as tf
+import scipy.io as sio
 from glob import glob
 import os
 import math
+import cv2
 
 def one_hot(label, output_dim):
 	one_hot = np.zeros((len(label), output_dim))
@@ -12,26 +14,50 @@ def one_hot(label, output_dim):
 	
 	return one_hot
 
+def load_data_from_mat(path):
+	data = sio.loadmat(path, struct_as_record=False, squeeze_me=True)
+	for key in data:
+		if isinstance(data[key], sio.matlab.mio5_params.mat_struct):
+			data[key] = _todict(data[key])
+	return data
+
+def _todict(matobj):
+    """
+    A recursive function which constructs from matobjects nested dictionaries
+    """
+    dict = {}
+    for strg in matobj._fieldnames:
+        elem = matobj.__dict__[strg]
+        if isinstance(elem, sio.matlab.mio5_params.mat_struct):
+            dict[strg] = _todict(elem)
+        else:
+            dict[strg] = elem
+    return dict
+
+#============== Different Readers ==============
 
 def affnist_reader(args, path):
+	train_path = glob(os.path.join(path, "train/*.mat"))
+	test_path = glob(os.path.join(path, "test/*.mat"))
 
-	f = open(os.path.join(path, 'train-images.idx3-ubyte'))
-	loaded = np.fromfile(file=f, dtype=np.uint8)
-	trainX = loaded[16:].reshape((60000, 28, 28, 1)).astype(np.float32)
+	train_data = load_data_from_mat(train_path[0])
 
-	f = open(os.path.join(path, 'train-labels.idx1-ubyte'))
-	loaded = np.fromfile(file=f, dtype=np.uint8)
-	trainY = loaded[8:].reshape((60000)).astype(np.int32)
+	trainX = train_data['affNISTdata']['image'].transpose()
+	trainY = train_data['affNISTdata']['label_int']
+
+	trainX = trainX.reshape((50000, 40, 40, 1)).astype(np.float32)
+	trainY = trainY.reshape((50000)).astype(np.int32)
 	trainY = one_hot(trainY, args.output_dim)
 
-	f = open(os.path.join(path, 't10k-images.idx3-ubyte'))
-	loaded = np.fromfile(file=f, dtype=np.uint8)
-	testX = loaded[16:].reshape((10000, 28, 28, 1)).astype(np.float32)
+	
+	test_data = load_data_from_mat(test_path[0])
 
-	f = open(os.path.join(path, 't10k-labels.idx1-ubyte'))
-	loaded = np.fromfile(file=f, dtype=np.uint8)
-	testY = loaded[8:].reshape((10000)).astype(np.int32)
-	testY = one_hot(testY, args.output_dim)
+	testX = test_data['affNISTdata']['image'].transpose()
+	testY = test_data['affNISTdata']['label_int']
+
+	testX = testX.reshape((10000, 40, 40, 1)).astype(np.float32)
+	testY = testY.reshape((10000)).astype(np.int32)
+	testY = one_hot(testY, args.output_dim)	
 
 	if args.is_train:
 		X = tf.convert_to_tensor(trainX, dtype=tf.float32) / 255.
