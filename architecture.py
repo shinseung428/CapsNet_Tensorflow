@@ -15,3 +15,11 @@ def batch_norm(input, name="batch_norm"):
 		normalized_batch = tf.nn.batch_normalization(input, mean, variance, offset, scale, variance_epsilon=1e-5)
 
 		return normalized_batch 
+
+
+def max_pool(inputs, kernel_size=3, stride=2, scope=None, name=""):
+  return tf.nn.max_pool(inputs, 
+                       ksize=[1, kernel_size, kernel_size, 1],
+                       strides=[1, stride, stride, 1],
+                       padding='SAME')
+  

@@ -1,5 +1,6 @@
 
 import tensorflow as tf
+import cv2
 
 class Manager():
 	def __init__(self, args):
@@ -21,11 +22,12 @@ class Manager():
 
 		epoch = 0
 		step = 0
+		overall_step = 0
 
 		#saver
 		saver = tf.train.Saver()		
-		if self.continue_training == "True":
-			last_ckpt = tf.train.latest_checkpoint(self.model_path)
+		if self.continue_training:
+			last_ckpt = tf.train.latest_checkpoint(self.checkpoints_path)
 			saver.restore(sess, last_ckpt)
 			ckpt_name = str(last_ckpt)
 			print "Loaded model file from " + ckpt_name
@@ -55,14 +57,15 @@ class Manager():
 											  model.loss, 
 											  model.accuracy, 
 											  optimizer])
-			writer.add_summary(summary, step)
+			writer.add_summary(summary, overall_step)
 
 			print "Epoch [%d] step [%d] Training Loss: [%.2f] Accuracy: [%.2f]" % (epoch, step, loss, acc)
 
 			step += 1
+			overall_step += 1
 
 			if step*self.batch_size >= model.data_count:
-				saver.save(sess, args.checkpoint_path + "model", global_step=epoch)
+				saver.save(sess, self.checkpoints_path + "model", global_step=epoch)
 				print "Model saved at epoch %s" % str(epoch)				
 				epoch += 1
 				step = 0
@@ -85,21 +88,24 @@ class Manager():
 		coord = tf.train.Coordinator()
 		threads = tf.train.start_queue_runners(sess=sess, coord=coord)
 
-		ave_loss = 0 
-		epoch = 0
+		ave_acc = 0 
 		step = 0
-		while epoch < 1:
+		while 1:
 			loss = sess.run(model.loss)
 			accuracy = sess.run(model.accuracy)
 			
-			print "Epoch [%d] step [%d] Test Loss: [%.2f] Accuracy [%.2f]" % (epoch, step, loss, accuracy)
+			# image = sess.run(model.X)			
+			# cv2.imshow("input",image[0])
+			# cv2.waitKey()
 			
-			ave_loss += loss
+			print "Step [%d] Test Loss: [%.2f] Accuracy [%.2f]" % (step, loss, accuracy)
+			
+			ave_acc += accuracy
 			step += 1
 			if step*self.batch_size > model.data_count:
-				epoch += 1
+				break
 
-		print "Ave. Accuracy: [%.2f]"%(1 - ave_loss/step)
+		print "Ave. Accuracy: [%.2f]"%(ave_acc/step)
 		coord.request_stop()
 		coord.join(threads)
 		sess.close()
