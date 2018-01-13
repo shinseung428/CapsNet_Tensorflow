@@ -67,16 +67,16 @@ class baseline_network():
 			conv2 = max_pool(conv2, 2, name="max_pool2")
 			conv2 = batch_norm(conv2, name="bn2")
 
-			# conv3 = tf.contrib.layers.conv2d(conv2, 128,
-			# 								 5, 1, padding="VALID",
-			# 								 weights_initializer=tf.contrib.layers.xavier_initializer(),
-			# 								 activation_fn=tf.nn.relu,
-			# 								 scope="conv3"
-			# 								)	
-			# conv3 = max_pool(conv3, 2, name="max_pool3")		
-			# conv3 = batch_norm(conv3, name="bn3")
+			conv3 = tf.contrib.layers.conv2d(conv2, 128,
+											 5, 1, padding="VALID",
+											 weights_initializer=tf.contrib.layers.xavier_initializer(),
+											 activation_fn=tf.nn.relu,
+											 scope="conv3"
+											)	
+			conv3 = max_pool(conv3, 2, name="max_pool3")		
+			conv3 = batch_norm(conv3, name="bn3")
 			
-			flattened = tf.contrib.layers.flatten(conv2)
+			flattened = tf.contrib.layers.flatten(conv3)
 			fc1 = tf.contrib.layers.fully_connected(flattened, num_outputs=328,
 													weights_initializer=tf.contrib.layers.xavier_initializer(),
 													activation_fn=tf.nn.relu,

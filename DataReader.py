@@ -6,6 +6,19 @@ import os
 import math
 import cv2
 
+
+def place_random(trainX):
+	trainX_new = []
+	for img in trainX:
+		img_new = np.zeros((40,40,1), dtype=np.int32)
+		pos = np.random.randint(12, size=(1, 2))
+		x, y = pos[0][0], pos[0][1]
+
+		img_new[x:x+28, y:y+28, :] = img
+		trainX_new.append(img_new)
+	
+	return trainX_new
+
 def one_hot(label, output_dim):
 	one_hot = np.zeros((len(label), output_dim))
 	
@@ -134,6 +147,10 @@ def mnist_reader(args, path):
 	loaded = np.fromfile(file=f, dtype=np.uint8)
 	trainX = loaded[16:].reshape((60000, 28, 28, 1)).astype(np.float32)
 
+	if args.random_pos:
+		trainX = place_random(trainX)
+
+
 	f = open(os.path.join(path, 'train-labels.idx1-ubyte'))
 	loaded = np.fromfile(file=f, dtype=np.uint8)
 	trainY = loaded[8:].reshape((60000)).astype(np.int32)
@@ -165,6 +182,8 @@ def mnist_reader(args, path):
 		angle = tf.random_uniform([1], minval=-60, maxval=60, dtype=tf.float32)
 		radian = angle * math.pi / 180
 		images = tf.contrib.image.rotate(images, radian)
+
+
 
 
 	X, Y = tf.train.batch([images, labels],

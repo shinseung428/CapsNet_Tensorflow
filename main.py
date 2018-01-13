@@ -28,8 +28,8 @@ parser = argparse.ArgumentParser(description='')
 parser.add_argument('--model', dest='model', default="capsule_dynamic", help='model type')
 
 #Image/Output setting
-parser.add_argument('--input_width', dest='input_width', default=28, help='input image width')
-parser.add_argument('--input_height', dest='input_height', default=28, help='input image height')
+parser.add_argument('--input_width', dest='input_width', default=40, help='input image width')
+parser.add_argument('--input_height', dest='input_height', default=40, help='input image height')
 parser.add_argument('--input_channel', dest='input_channel', default=1, help='input image channel')
 parser.add_argument('--output_dim', dest='output_dim', default=10, help='output dim')
 
@@ -52,6 +52,7 @@ parser.add_argument('--reg_scale', dest='reg_scale', default=0.0005, help='reg_s
 parser.add_argument('--is_train', dest='is_train', default=True, type=str2bool, help='flag to train')
 parser.add_argument('--continue_training', dest='continue_training', default=False, type=str2bool, help='flag to continue training')
 parser.add_argument('--rotate', dest='rotate', default=False, type=str2bool, help='rotate image flag')
+parser.add_argument('--random_pos', dest='random_pos', default=False, type=str2bool, help='randomly place image on 40 x 40 background')
 
 #Extra folders setting
 parser.add_argument('--checkpoints_path', dest='checkpoints_path', default='./checkpoints/', help='saved model checkpoint path')
