@@ -11,14 +11,14 @@
 * *capsule_em* (ToDo)
 
 ## Training
-'''
+```
 $ python main.py --model=capsule_dynamic --data=mnist
-'''
+```
 
 ## Testing
-'''
+```
 $ python main.py --is_train=False --model=capsule_dynamic --data=mnist
-'''
+```
 
 ### Train: mnist     Test: mnist (random rotation)
 
