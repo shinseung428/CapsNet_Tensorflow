@@ -32,7 +32,11 @@ $ python main.py --model=capsule_dynamic --data=mnist
 $ python main.py --is_train=False --model=capsule_dynamic --data=mnist --rotate=True
 ```
 
-### Train: fashion-mnist Test: fashion-mnist
+### Test 2 
+| Train | Test |
+| ------------- | ------------- |
+| fashion-mnist  | fashion-mnist |
+
 ```
 $ python main.py --model=capsule_dynamic --data=fashion-mnist 
 ```
@@ -41,7 +45,10 @@ $ python main.py --model=capsule_dynamic --data=fashion-mnist
 $ python main.py --is_train=False --model=capsule_dynamic --data=fashion-mnist 
 ```
 
-### Train: mnist (randomly placed mnist on 40x40 background) Test: affnist
+### Test 3
+| Train | Test |
+| ------------- | ------------- |
+| mnist (randomly placed mnist on 40x40 background) | affnist |
 ```
 $ python main.py --model=capsule_dynamic --data=mnist --random_pos=True
 ```
