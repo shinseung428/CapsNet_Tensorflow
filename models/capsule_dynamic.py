@@ -53,7 +53,6 @@ class capsule_dynamic():
 		print "number of parameters: ", count_param(self.trainable_vars)
 
 
-
 	def CapsNetwork(self, input_image, name):
 		with tf.variable_scope(name) as scope:
 			conv1 = tf.contrib.layers.conv2d(input_image, 256,

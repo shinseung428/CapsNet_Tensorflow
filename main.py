@@ -60,9 +60,6 @@ parser.add_argument('--graph_path', dest='graph_path', default='./graphs/', help
 
 args = parser.parse_args()
 
-if args.is_train == "False":
-    args.is_train = False
-
 #============================================================================================
 
 def main(_):

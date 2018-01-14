@@ -3,7 +3,7 @@
 ## Included datasets
 * [mnist](http://yann.lecun.com/exdb/mnist/)
 * [fashion-mnist](https://github.com/zalandoresearch/fashion-mnist/tree/master/data/fashion)
-* [affnist](http://www.cs.toronto.edu/~tijmen/affNIST/)
+* [affnist](http://www.cs.toronto.edu/~tijmen/affNIST/32x/transformed/)
 * smallNORB (Coming soon)
 
 ## Network Model
@@ -14,15 +14,15 @@
 ## Requirements
 
 ## How to run Training & Testing
+Example code to train the capsule_dynamic(CapsNet with dynamic routing) model on mnist dataset.
 ```
 $ python main.py --model=capsule_dynamic --data=mnist
 ```
-An example code to train the capsule_dynamic(CapsNet with dynamic routing) model on mnist dataset.
 
+Example code to test the capsule_dynamic(CapsNet with dynamic routing) model on mnist dataset.
 ```
 $ python main.py --is_train=False --model=capsule_dynamic --data=mnist
 ```
-An example code to test the capsule_dynamic(CapsNet with dynamic routing) model on mnist dataset.
 
 Other models can be trained/tested by changing the name of the --model flag, and other datasets can be used by changing the name of the --data flag.
 
@@ -41,10 +41,10 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=mnist
 ***Reconstructed mnist images***
 ![Alt text](images/mnist_recon.jpg?raw=true "mnist reconstructed")
 
-| Model            | Accuracy |
-| ---------------- | -------- |
-| baseline_network |  99.03 % |
-| capsule_dynamic  |  99.25 % |
+| Model            | Parameters | Accuracy |
+| ---------------- | ---------- | -------- |
+| baseline_network |    13.2M   |  99.03 % |
+| capsule_dynamic  |     8.2M   |  99.25 % |
 
 Both baseline_network and capsule_dynamic network achieved above 99% accuracy on the mnist dataset. 
 
@@ -64,10 +64,10 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=fashion-mnist
 ***Reconstructed fashion-mnist images***
 ![Alt text](images/fashion_mnist_recon.jpg?raw=true "fashion-mnist reconstructed") 
 
-| Model            | Accuracy |
-| ---------------- | -------- |
-| baseline_network |  89.94%  |
-| capsule_dynamic  |  89.02%  |
+| Model            | Parameters | Accuracy |
+| ---------------- | ---------- | -------- |
+| baseline_network |    13.2M   |  89.94%  |
+| capsule_dynamic  |     8.2M   |  89.02%  |
 
 
 Both baseline_network and capsule_dynamic network achieved about 89% accuracy on the fashion-mnist dataset. 
@@ -87,10 +87,10 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=mnist --rotate=
 ***Tested randomly rotated mnist images***
 ![Alt text](images/mnist_rotated.jpg?raw=true "rotated mnist")
 
-| Model            | Accuracy |
-| ---------------- | -------- |
-| baseline_network |  74.10 % |
-| capsule_dynamic  |  77.68 % |
+| Model            | Parameters | Accuracy |
+| ---------------- | ---------- | -------- |
+| baseline_network |    13.2M   |  74.10 % |
+| capsule_dynamic  |     8.2M   |  77.68 % |
 
 
 The baseline_network(CNN) and capsule_dynamic(CapsNet with dynamic routing) models were first trained on the normal 28x28 mnist dataset. Both network achieved high accuracy on the test set (both close to 99%). 
@@ -111,10 +111,10 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=affnist
 ***Tested 40x40 affnist images***
 ![Alt text](images/affnist.jpg?raw=true "affnist") 
 
-| Model            | Accuracy |
-| ---------------- | -------- |
-| baseline_network |  61.70 % |
-| capsule_dynamic  |  75.89 % |
+| Model            | Parameters | Accuracy |
+| ---------------- | ---------- | -------- |
+| baseline_network |    35.4M   |  61.70 % |
+| capsule_dynamic  |    13.5M   |  75.89 % |
 
 
 This test runs two models on 40x40 randomly placed mnist images. No affine transformation is applied other than translation and natural transformation seen in the standard mnist. This test is performed to test the robustness of the capsule network to affine transformations.
