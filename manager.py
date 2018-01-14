@@ -59,7 +59,7 @@ class Manager():
 											  optimizer])
 			writer.add_summary(summary, overall_step)
 
-			print "Epoch [%d] step [%d] Training Loss: [%.2f] Accuracy: [%.2f]" % (epoch, step, loss, acc)
+			print "Epoch [%d] step [%d] Training Loss: [%.4f] Accuracy: [%.4f]" % (epoch, step, loss, acc)
 
 			step += 1
 			overall_step += 1
@@ -93,19 +93,19 @@ class Manager():
 		while 1:
 			loss = sess.run(model.loss)
 			accuracy = sess.run(model.accuracy)
-			
+
 			# image = sess.run(model.X)			
 			# cv2.imshow("input",image[0])
 			# cv2.waitKey()
 			
-			print "Step [%d] Test Loss: [%.2f] Accuracy [%.2f]" % (step, loss, accuracy)
+			print "Step [%d] Test Loss: [%.4f] Accuracy [%.4f]" % (step, loss, accuracy)
 			
 			ave_acc += accuracy
 			step += 1
 			if step*self.batch_size > model.data_count:
 				break
 
-		print "Ave. Accuracy: [%.2f]"%(ave_acc/step)
+		print "Ave. Accuracy: [%.4f]"%(ave_acc/step)
 		coord.request_stop()
 		coord.join(threads)
 		sess.close()

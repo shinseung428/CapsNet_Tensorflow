@@ -37,10 +37,10 @@ parser.add_argument('--output_dim', dest='output_dim', default=10, help='output 
 parser.add_argument('--data', dest='data', default='mnist', help='cats image train path')
 parser.add_argument('--root_path', dest='root_path', default='./data/', help='cats image train path')
 
-parser.add_argument('--epochs', dest='epochs', default=10, help='total number of epochs')
+parser.add_argument('--epochs', dest='epochs', default=5, help='total number of epochs')
 parser.add_argument('--batch_size', dest='batch_size', default=64, help='batch size')
 
-parser.add_argument('--learning_rate', dest='learning_rate', default=0.001, help='learning rate of the optimizer')
+parser.add_argument('--learning_rate', dest='learning_rate', default=1e-5, help='learning rate of the optimizer')
 parser.add_argument('--momentum', dest='momentum', default=0.5, help='momentum of the optimizer')
 
 parser.add_argument('--m_plus', dest='m_plus', default=0.9, help='m_plus')

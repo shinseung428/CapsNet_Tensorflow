@@ -28,7 +28,7 @@ def boundBox(img):
 def place_random(trainX):
 	trainX_new = []
 	for img in trainX:
-		minX, maxX, minY, maxY = boundBox(img)
+		#minX, maxX, minY, maxY = boundBox(img)
 		minX = minY = 0
 		maxX = maxY = 28
 
@@ -156,7 +156,7 @@ def fashion_mnist_reader(args, path):
 	labels = input_queue[1]
 
 	if args.rotate:
-		angle = tf.random_uniform([1], minval=-60, maxval=60, dtype=tf.float32)
+		angle = tf.random_uniform([1], minval=-30, maxval=30, dtype=tf.float32)
 		radian = angle * math.pi / 180
 		images = tf.contrib.image.rotate(images, radian)
 

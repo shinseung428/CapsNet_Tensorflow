@@ -37,7 +37,7 @@ class baseline_network():
 
 		self.trainable_vars = tf.trainable_variables()
 		print "number of parameters: ", count_param(self.trainable_vars)
-		
+	
 
 	def build_loss(self):
 		self.loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=self.Y, logits=self.classifier_logits))
@@ -57,7 +57,7 @@ class baseline_network():
 											 activation_fn=tf.nn.relu,
 											 scope="conv1"
 											)
-			conv1 = max_pool(conv1, 2, name="max_pool1")
+			#conv1 = max_pool(conv1, 2, name="max_pool1")
 			conv1 = batch_norm(conv1, name="bn1")
 
 			conv2 = tf.contrib.layers.conv2d(conv1, 256,
@@ -66,7 +66,7 @@ class baseline_network():
 											 activation_fn=tf.nn.relu,
 											 scope="conv2"
 											)
-			conv2 = max_pool(conv2, 2, name="max_pool2")
+			#conv2 = max_pool(conv2, 2, name="max_pool2")
 			conv2 = batch_norm(conv2, name="bn2")
 
 			conv3 = tf.contrib.layers.conv2d(conv2, 128,
@@ -75,7 +75,7 @@ class baseline_network():
 											 activation_fn=tf.nn.relu,
 											 scope="conv3"
 											)	
-			conv3 = max_pool(conv3, 2, name="max_pool3")		
+			#conv3 = max_pool(conv3, 2, name="max_pool3")		
 			conv3 = batch_norm(conv3, name="bn3")
 			
 			flattened = tf.contrib.layers.flatten(conv3)
