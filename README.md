@@ -24,15 +24,18 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=mnist
 Code to test the network. The model can be trained on one dataset and can be tested on another dataset. 
 
 ### Test 1 (mnist -> mnist)
+![Alt text](images/mnist_gt.jpg?raw=true "mnist")
+![Alt text](images/mnist_recon.jpg?raw=true "mnist reconstructed")
+
 
 ### Test 2 (mnist -> mnist(rotated))
 ![Alt text](images/mnist_gt.jpg?raw=true "mnist")
 ![Alt text](images/mnist_rotated.jpg?raw=true "rotated mnist")
 
-| Train | Test |
-| ------ | ------------- |
-| mnist  | mnist (random rotation -30 to +30) |
-
+| Model | Train | Test |
+| ----- | ------ | ------------- |
+| baseline_network |   |  |
+| capsule_dynamic |   |  |
 
 ```
 $ python main.py --model=capsule_dynamic --data=mnist
@@ -48,9 +51,11 @@ Two models were then tested on randomly rotated(-30 to +30) mnist test set. Figu
 ![Alt text](images/fashion_mnist_gt.jpg?raw=true "fashion-mnist")
 ![Alt text](images/fashion_mnist_recon.jpg?raw=true "fashion-mnist reconstructed") 
 
-| Train | Test |
-| -------------- | ------------- |
-| fashion-mnist  | fashion-mnist |
+| Model | Train | Test |
+| ----- | ------ | ------------- |
+| baseline_network |   |  |
+| capsule_dynamic |   |  |
+
 
 ```
 $ python main.py --model=capsule_dynamic --data=fashion-mnist 
@@ -63,9 +68,11 @@ The normal convolutional network achieved test accuracy of 91.17% while capsule 
 
 
 ### Test 4 (mnist -> affnist)
-| Train | Test |
-| ----- | ---- |
-| mnist (randomly placed mnist on 40x40 background) | affnist |
+| Model | Train | Test |
+| ----- | ------ | ------------- |
+| baseline_network |   |  |
+| capsule_dynamic |   |  |
+
 
 ```
 $ python main.py --model=capsule_dynamic --data=mnist --random_pos=True
