@@ -20,7 +20,8 @@ $ python main.py --model=capsule_dynamic --data=mnist
 $ python main.py --is_train=False --model=capsule_dynamic --data=mnist
 ```
 
-### Train: mnist     Test: mnist (random rotation)
+### Train: mnist 
+### Test: mnist (random rotation)
 ```
 $ python main.py --model=capsule_dynamic --data=mnist
 ```
