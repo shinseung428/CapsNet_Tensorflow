@@ -11,19 +11,21 @@
 * capsule_dynamic (Capsule Network with Dynamic Routing)
 * *capsule_em* (ToDo)
 
-## Training
+## How to run Training & Testing
 ```
 $ python main.py --model=capsule_dynamic --data=mnist
 ```
-Code to train the network. Different models can be trained on various datasets. 
+An example code to train the capsule_dynamic(CapsNet with dynamic routing) model on mnist dataset.
 
-## Testing
+
 ```
 $ python main.py --is_train=False --model=capsule_dynamic --data=mnist
 ```
-Code to test the network. The model can be trained on one dataset and can be tested on another dataset. 
+An example code to test the capsule_dynamic(CapsNet with dynamic routing) model on mnist dataset.
 
-### Test 1 (mnist -> mnist)
+Other models can be trained/tested by changing the name of the --model flag, and other datasets can be used by changing the name of the --data flag.
+
+## Test 1 (mnist -> mnist)
 ![Alt text](images/mnist_gt.jpg?raw=true "mnist")
 ![Alt text](images/mnist_recon.jpg?raw=true "mnist reconstructed")
 
@@ -32,7 +34,9 @@ Code to test the network. The model can be trained on one dataset and can be tes
 | baseline_network |  99.03 % |
 | capsule_dynamic  |  99.25 % |
 
-### Test 2 (fashoin-mnist)
+Both baseline_network and capsule_dynamic network achieved above 99% accuracy on the mnist dataset. 
+
+## Test 2 (fashoin-mnist)
 ![Alt text](images/fashion_mnist_gt.jpg?raw=true "fashion-mnist")
 ![Alt text](images/fashion_mnist_recon.jpg?raw=true "fashion-mnist reconstructed") 
 
@@ -45,6 +49,7 @@ Code to test the network. The model can be trained on one dataset and can be tes
 ```
 $ python main.py --model=capsule_dynamic --data=fashion-mnist 
 ```
+Code to run capsule_dynamic model on fashion_mnist dataset.
 
 ```
 $ python main.py --is_train=False --model=capsule_dynamic --data=fashion-mnist 
@@ -52,7 +57,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=fashion-mnist
 The normal convolutional network achieved test accuracy of 91.17% while capsule network with dynamic routing achieved accuracy of 89.52%. 
 
 
-### Test 3 (mnist -> mnist(rotated))
+## Test 3 (mnist -> mnist(rotated))
 ![Alt text](images/mnist_gt.jpg?raw=true "mnist")
 ![Alt text](images/mnist_rotated.jpg?raw=true "rotated mnist")
 
@@ -72,7 +77,7 @@ The baseline_network(CNN) and capsule_dynamic(CapsNet with dynamic routing) mode
 Two models were then tested on randomly rotated(-30 to +30) mnist test set. Figure 1 shows some of the inputs tested on both models. The baseline_network achieved ___ accuracy and a capsule_dynamic achieved ___ accuracy.
 
 
-### Test 4 (mnist -> affnist)
+## Test 4 (mnist -> affnist)
 | Model            | Accuracy |
 | ---------------- | -------- |
 | baseline_network |  61.70 % |
@@ -90,5 +95,4 @@ This test runs two models on 40x40 randomly placed mnist images. No affine trans
 
 Comparing the baseline network with capsule network with dynamic routing shows similar result as mentioned in CapsNet paper. Baseline network achieves accuracy of ___ and the capsule network achieves an accuray of ____.
 
-#### Reconstructed randomly placed mnist image
 
