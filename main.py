@@ -68,11 +68,13 @@ if args.is_train == "False":
 def main(_):
     run_config = tf.ConfigProto()
     run_config.gpu_options.allow_growth = True
-    print 'Starting CapsNet Classifier...'
+    
     with tf.Session(config=run_config) as sess:
         if args.model == "baseline_network":
+            print 'Creating baseline_network...'
             model = baseline_network(args)
         elif args.model == "capsule_dynamic":
+            print 'Creating dynamic routing capsule network...'
             model = capsule_dynamic(args)
         elif args.model == "capsule_em":
             pass

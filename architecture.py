@@ -23,3 +23,15 @@ def max_pool(inputs, kernel_size=3, stride=2, scope=None, name=""):
                        strides=[1, stride, stride, 1],
                        padding='SAME')
   
+
+def count_param(total_param):
+	total_num = 0
+	for v in total_param:
+		shape = v.get_shape()
+		variable_parameters = 1
+		for dim in shape:
+			variable_parameters *= dim.value
+
+		total_num += variable_parameters
+
+	return total_num

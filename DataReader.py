@@ -6,18 +6,43 @@ import os
 import math
 import cv2
 
+def boundBox(img):
+	minX = minY = 999
+	maxX = maxY = -1
+
+	for i in range(0,img.shape[0]):
+		if img[i, :, :].max() != 0 and minY == 999:
+			minY = i
+		if img[:, i, :].max() != 0 and minX == 999:
+			minX = i
+
+	for i in range(img.shape[1]-1, -1, -1):
+		if img[i, :, :].max() != 0 and maxY == -1:
+			maxY = i
+		if img[:, i:, :].max() != 0 and maxX == -1:
+			maxX = i
+
+	return minX, maxX, minY, maxY
+	
 
 def place_random(trainX):
 	trainX_new = []
 	for img in trainX:
-		img_new = np.zeros((40,40,1), dtype=np.int32)
-		pos = np.random.randint(12, size=(1, 2))
-		x, y = pos[0][0], pos[0][1]
+		minX, maxX, minY, maxY = boundBox(img)
+		minX = minY = 0
+		maxX = maxY = 28
 
-		img_new[x:x+28, y:y+28, :] = img
+		x_len = maxX - minX
+		y_len = maxY - minY
+
+		img_new = np.zeros((40,40,1), dtype=np.float32)
+		x = np.random.randint(40 - x_len , size=1)[0]
+		y = np.random.randint(40 - y_len , size=1)[0]
+
+		img_new[y:y+y_len, x:x+x_len, :] = img[minY:maxY, minX:maxX :]
 		trainX_new.append(img_new)
 	
-	return trainX_new
+	return np.array(trainX_new)
 
 def one_hot(label, output_dim):
 	one_hot = np.zeros((len(label), output_dim))
@@ -62,9 +87,7 @@ def affnist_reader(args, path):
 	trainY = trainY.reshape((50000)).astype(np.int32)
 	trainY = one_hot(trainY, args.output_dim)
 
-	
 	test_data = load_data_from_mat(test_path[0])
-
 	testX = test_data['affNISTdata']['image'].transpose()
 	testY = test_data['affNISTdata']['label_int']
 
@@ -98,6 +121,7 @@ def affnist_reader(args, path):
 
 
 def fashion_mnist_reader(args, path):
+	#Training Data
 	f = open(os.path.join(path, 'train-images-idx3-ubyte'))
 	loaded = np.fromfile(file=f, dtype=np.uint8)
 	trainX = loaded[16:].reshape((60000, 28, 28, 1)).astype(np.float32)
@@ -108,6 +132,7 @@ def fashion_mnist_reader(args, path):
 	trainY = one_hot(trainY, args.output_dim)
 
 
+	#Test Data
 	f = open(os.path.join(path, 't10k-images-idx3-ubyte'))
 	loaded = np.fromfile(file=f, dtype=np.uint8)
 	testX = loaded[16:].reshape((10000, 28, 28, 1)).astype(np.float32)
@@ -142,7 +167,7 @@ def fashion_mnist_reader(args, path):
 
 
 def mnist_reader(args, path):
-
+	#Training Data
 	f = open(os.path.join(path, 'train-images.idx3-ubyte'))
 	loaded = np.fromfile(file=f, dtype=np.uint8)
 	trainX = loaded[16:].reshape((60000, 28, 28, 1)).astype(np.float32)
@@ -150,12 +175,13 @@ def mnist_reader(args, path):
 	if args.random_pos:
 		trainX = place_random(trainX)
 
-
 	f = open(os.path.join(path, 'train-labels.idx1-ubyte'))
 	loaded = np.fromfile(file=f, dtype=np.uint8)
 	trainY = loaded[8:].reshape((60000)).astype(np.int32)
 	trainY = one_hot(trainY, args.output_dim)
 
+
+	#Test Data
 	f = open(os.path.join(path, 't10k-images.idx3-ubyte'))
 	loaded = np.fromfile(file=f, dtype=np.uint8)
 	testX = loaded[16:].reshape((10000, 28, 28, 1)).astype(np.float32)
@@ -174,7 +200,7 @@ def mnist_reader(args, path):
 		Y = tf.convert_to_tensor(testY, dtype=tf.float32)
 		data_count = len(testX)
 
-	input_queue = tf.train.slice_input_producer([X, Y],shuffle=True)
+	input_queue = tf.train.slice_input_producer([X, Y], shuffle=True)
 	images = tf.image.resize_images(input_queue[0] ,[args.input_width, args.input_height])
 	labels = input_queue[1]
 
@@ -182,8 +208,6 @@ def mnist_reader(args, path):
 		angle = tf.random_uniform([1], minval=-60, maxval=60, dtype=tf.float32)
 		radian = angle * math.pi / 180
 		images = tf.contrib.image.rotate(images, radian)
-
-
 
 
 	X, Y = tf.train.batch([images, labels],

@@ -22,7 +22,7 @@ class baseline_network():
 		self.learning_rate = args.learning_rate
 		self.momentum = args.momentum
 
-
+		print "Loading Data..."
 		self.X, self.Y, self.data_count = load_data(args)
 		self.build_model()
 		self.build_loss()
@@ -36,6 +36,8 @@ class baseline_network():
 		self.classifier, self.classifier_logits = self.model(self.X, name="classifier")
 
 		self.trainable_vars = tf.trainable_variables()
+		print "number of parameters: ", count_param(self.trainable_vars)
+		
 
 	def build_loss(self):
 		self.loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=self.Y, logits=self.classifier_logits))
@@ -58,7 +60,7 @@ class baseline_network():
 			conv1 = max_pool(conv1, 2, name="max_pool1")
 			conv1 = batch_norm(conv1, name="bn1")
 
-			conv2 = tf.contrib.layers.conv2d(conv1, 128,
+			conv2 = tf.contrib.layers.conv2d(conv1, 256,
 											 5, 1, padding="VALID",
 											 weights_initializer=tf.contrib.layers.xavier_initializer(),
 											 activation_fn=tf.nn.relu,

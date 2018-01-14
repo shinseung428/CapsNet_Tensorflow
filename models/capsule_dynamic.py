@@ -34,8 +34,7 @@ class capsule_dynamic():
 		self.m_minus = args.m_minus
 		self.reg_scale = args.reg_scale
 
-		# self.sess = sess
-
+		print "Loading Data..."
 		self.X, self.Y, self.data_count = load_data(args)
 		self.build_model()
 		self.build_loss()
@@ -51,6 +50,8 @@ class capsule_dynamic():
 		self.CapsNetwork(self.X, name="capsnet")
 
 		self.trainable_vars = tf.trainable_variables()
+		print "number of parameters: ", count_param(self.trainable_vars)
+
 
 
 	def CapsNetwork(self, input_image, name):
