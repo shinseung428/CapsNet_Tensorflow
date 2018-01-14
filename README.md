@@ -1,15 +1,17 @@
 # Testing Capsule Network on various datasets
 
 ## Included datasets
-* mnist
-* fashion-mnist
-* affnist
-* smallNORB (ToDo)
+* [mnist](http://yann.lecun.com/exdb/mnist/)
+* [fashion-mnist](https://github.com/zalandoresearch/fashion-mnist/tree/master/data/fashion)
+* [affnist](http://www.cs.toronto.edu/~tijmen/affNIST/)
+* smallNORB (Coming soon)
 
 ## Network Model
 * baseline_network (Convolutional Neural Network)
 * capsule_dynamic (Capsule Network with Dynamic Routing)
-* *capsule_em* (ToDo)
+* *capsule_em* (Coming soon)
+
+## Requirements
 
 ## How to run Training & Testing
 ```
@@ -34,10 +36,10 @@ $ python main.py --model=capsule_dynamic --data=mnist
 $ python main.py --is_train=False --model=capsule_dynamic --data=mnist 
 ```
 
-![Alt text](images/mnist_gt.jpg?raw=true "mnist")
 ***Trained mnist images***
-![Alt text](images/mnist_recon.jpg?raw=true "mnist reconstructed")
+![Alt text](images/mnist_gt.jpg?raw=true "mnist")
 ***Reconstructed mnist images***
+![Alt text](images/mnist_recon.jpg?raw=true "mnist reconstructed")
 
 | Model            | Accuracy |
 | ---------------- | -------- |
