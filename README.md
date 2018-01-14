@@ -25,7 +25,7 @@ Code to test the network. The model can be trained on one dataset and can be tes
 
 ### Test 1
 ![Alt text](images/mnist_gt.jpg?raw=true "mnist")
-![Alt text](images/mnist_recon.jpg?raw=true "reconstructed mnist")
+![Alt text](images/mnist_rotated.jpg?raw=true "rotated mnist")
 
 | Train | Test |
 | ------ | ------------- |
@@ -43,6 +43,8 @@ The baseline_network(CNN) and capsule_dynamic(CapsNet with dynamic routing) mode
 Two models were then tested on randomly rotated(-30 to +30) mnist test set. Figure 1 shows some of the inputs tested on both models. The baseline_network achieved ___ accuracy and a capsule_dynamic achieved ___ accuracy.
 
 ### Test 2 
+![Alt text](images/fashion_mnist_gt.jpg?raw=true "fashion-mnist")
+![Alt text](images/fashion_mnist_recon.jpg?raw=true "fashion-mnist reconstructed")
 | Train | Test |
 | -------------- | ------------- |
 | fashion-mnist  | fashion-mnist |
