@@ -44,7 +44,8 @@ Two models were then tested on randomly rotated(-30 to +30) mnist test set. Figu
 
 ### Test 2 
 ![Alt text](images/fashion_mnist_gt.jpg?raw=true "fashion-mnist")
-![Alt text](images/fashion_mnist_recon.jpg?raw=true "fashion-mnist reconstructed")
+![Alt text](images/fashion_mnist_recon.jpg?raw=true "fashion-mnist reconstructed") 
+
 | Train | Test |
 | -------------- | ------------- |
 | fashion-mnist  | fashion-mnist |
