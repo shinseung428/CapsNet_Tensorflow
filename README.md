@@ -29,14 +29,15 @@ Code to run the test
 ```
 $ python main.py --model=capsule_dynamic --data=mnist 
 ```
+
 ```
 $ python main.py --is_train=False --model=capsule_dynamic --data=mnist 
 ```
 
 ![Alt text](images/mnist_gt.jpg?raw=true "mnist")
-*** Trained mnist images ***
+***Trained mnist images***
 ![Alt text](images/mnist_recon.jpg?raw=true "mnist reconstructed")
-*** Reconstructed mnist images ***
+***Reconstructed mnist images***
 
 | Model            | Accuracy |
 | ---------------- | -------- |
@@ -45,7 +46,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=mnist
 
 Both baseline_network and capsule_dynamic network achieved above 99% accuracy on the mnist dataset. 
 
-## Test 2 (fashoin -> mnist)
+## Test 2 (fashion-mnist -> fashion-mnist)
 
 Code to run the test
 ```
@@ -56,9 +57,9 @@ $ python main.py --model=capsule_dynamic --data=fashion-mnist
 $ python main.py --is_train=False --model=capsule_dynamic --data=fashion-mnist 
 ```
 
-*** Trained fashion-mnist images ***
+***Trained fashion-mnist images***
 ![Alt text](images/fashion_mnist_gt.jpg?raw=true "fashion-mnist")
-*** Reconstructed fashion-mnist images ***
+***Reconstructed fashion-mnist images***
 ![Alt text](images/fashion_mnist_recon.jpg?raw=true "fashion-mnist reconstructed") 
 
 | Model            | Accuracy |
@@ -79,9 +80,9 @@ $ python main.py --model=capsule_dynamic --data=mnist
 $ python main.py --is_train=False --model=capsule_dynamic --data=mnist --rotate=True
 ```
 
-*** Trained mnist images ***
+***Trained mnist images***
 ![Alt text](images/mnist_gt.jpg?raw=true "mnist") 
-*** Tested randomly rotated mnist images ***
+***Tested randomly rotated mnist images***
 ![Alt text](images/mnist_rotated.jpg?raw=true "rotated mnist")
 
 | Model            | Accuracy |
@@ -103,9 +104,9 @@ $ python main.py --model=capsule_dynamic --data=mnist --random_pos=True
 ```
 $ python main.py --is_train=False --model=capsule_dynamic --data=affnist
 ```
-*** Trained randomly positioned 40x40 mnist images ***
+***Trained randomly positioned 40x40 mnist images***
 ![Alt text](images/mnist40.jpg?raw=true "mnist40") 
-*** Tested 40x40 affnist images ***
+***Tested 40x40 affnist images***
 ![Alt text](images/affnist.jpg?raw=true "affnist") 
 
 | Model            | Accuracy |
