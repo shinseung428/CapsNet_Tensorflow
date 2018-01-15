@@ -1,4 +1,8 @@
-data/*
-graphs/*
-checkpoints/*
+data/affnist
+data/mnist
+data/fashion_mnist
+data/small_norb
+
+#graphs/
+#checkpoints/
 *.pyc
