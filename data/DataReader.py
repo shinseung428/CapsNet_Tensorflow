@@ -4,6 +4,7 @@ import scipy.io as sio
 from glob import glob
 import os
 import math
+import cv2
 
 from norb_reader import *
 
@@ -102,14 +103,7 @@ def small_norb_reader(args, path):
 		extracted = []
 		for img in train_dat:
 			img = img[0].reshape(96,96,1)
-			patch1 = img[:48,:48]
-			patch2 = img[:48,48:]
-			patch3 = img[48:,:48]
-			patch4 = img[48:,48:]
-			extracted.append(patch1)
-			extracted.append(patch2)
-			extracted.append(patch3)
-			extracted.append(patch4)
+			extracted.append(img)
 		return np.array(extracted)
 	#Training Data
 	file_handle = open(getPath('train','dat'))
@@ -124,12 +118,10 @@ def small_norb_reader(args, path):
 	test_cat = parseNORBFile(file_handle)
 
 	trainX = extract_patch(train_dat)
-	trainY = np.repeat(train_cat, 4)
-	trainY = one_hot(trainY,args.output_dim)
+	trainY = one_hot(train_cat,args.output_dim)
 	
 	testX = extract_patch(test_dat)
-	testY = np.repeat(test_cat, 4)
-	testY = one_hot(testY,args.output_dim)
+	testY = one_hot(test_cat,args.output_dim)
 
 	if args.is_train:
 		X = tf.convert_to_tensor(trainX, dtype=tf.float32) / 255.
