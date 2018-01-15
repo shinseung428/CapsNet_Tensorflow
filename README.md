@@ -158,7 +158,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=affnist
 
 This test runs two models on 40x40 randomly placed mnist images. No affine transformation is applied other than translation and natural transformation seen in the standard mnist. This test is performed to test the robustness of the capsule network to affine transformations.
 
-Comparing the baseline network with capsule network with dynamic routing shows similar result as mentioned in CapsNet paper. The baseline network achieves 61.70% accuracy and the capsule network achieves 75.89% accuray.
+Comparing the baseline network with capsule network with dynamic routing shows similar result as mentioned in the CapsNet paper. The baseline network achieves 61.70% accuracy and the capsule network achieves 75.89% accuray.
 
 ## ToDo
 * Implement Matrix Capsules with EM Routing 

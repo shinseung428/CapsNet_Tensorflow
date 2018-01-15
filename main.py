@@ -78,9 +78,9 @@ def main(_):
 
 
         #create graph and checkpoints folder if they don't exist
-        if not os.path.exists(args.checkpoints_path)
+        if not os.path.exists(args.checkpoints_path):
             os.makedirs(args.checkpoints_path)
-        if not os.path.exists(args.graph_path)
+        if not os.path.exists(args.graph_path):
             os.makedirs(args.graph_path)
             
         #create a subfolder in checkpoints folder
