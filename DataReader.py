@@ -4,42 +4,21 @@ import scipy.io as sio
 from glob import glob
 import os
 import math
-import cv2
 
-def boundBox(img):
-	minX = minY = 999
-	maxX = maxY = -1
-
-	for i in range(0,img.shape[0]):
-		if img[i, :, :].max() != 0 and minY == 999:
-			minY = i
-		if img[:, i, :].max() != 0 and minX == 999:
-			minX = i
-
-	for i in range(img.shape[1]-1, -1, -1):
-		if img[i, :, :].max() != 0 and maxY == -1:
-			maxY = i
-		if img[:, i:, :].max() != 0 and maxX == -1:
-			maxX = i
-
-	return minX, maxX, minY, maxY
 	
 
 def place_random(trainX):
+	#randomly place 28x28 mnist image on 40x40 background
 	trainX_new = []
 	for img in trainX:
-		#minX, maxX, minY, maxY = boundBox(img)
-		minX = minY = 0
-		maxX = maxY = 28
-
 		x_len = maxX - minX
 		y_len = maxY - minY
 
 		img_new = np.zeros((40,40,1), dtype=np.float32)
-		x = np.random.randint(40 - x_len , size=1)[0]
-		y = np.random.randint(40 - y_len , size=1)[0]
+		x = np.random.randint(12 , size=1)[0]
+		y = np.random.randint(12 , size=1)[0]
 
-		img_new[y:y+y_len, x:x+x_len, :] = img[minY:maxY, minX:maxX :]
+		img_new[y:y+28, x:x+28, :] = img
 		trainX_new.append(img_new)
 	
 	return np.array(trainX_new)
@@ -60,9 +39,7 @@ def load_data_from_mat(path):
 	return data
 
 def _todict(matobj):
-    """
-    A recursive function which constructs from matobjects nested dictionaries
-    """
+    #A recursive function which constructs from matobjects nested dictionaries
     dict = {}
     for strg in matobj._fieldnames:
         elem = matobj.__dict__[strg]
@@ -119,6 +96,53 @@ def affnist_reader(args, path):
 
 	return X, Y, data_count
 
+
+def smallNORB_reader(args, path):
+
+	#Training Data
+	f = open(os.path.join(path, 'smallnorb-5x46789x9x18x6x2x96x96-training-dat.mat'))
+	loaded = np.fromfile(file=f, dtype=np.uint8)
+	trainX = loaded.reshape((24300, 96, 96, 1)).astype(np.float32)
+	
+
+	f = open(os.path.join(path, 'smallnorb-5x46789x9x18x6x2x96x96-training-cat.mat'))
+	loaded = np.fromfile(file=f, dtype=np.uint8)
+	trainY = loaded[8:].reshape((24300)).astype(np.int32)
+	trainY = one_hot(trainY, args.output_dim)
+
+
+	#Test Data
+	f = open(os.path.join(path, 't10k-images-idx3-ubyte'))
+	loaded = np.fromfile(file=f, dtype=np.uint8)
+	testX = loaded[16:].reshape((10000, 28, 28, 1)).astype(np.float32)
+
+	f = open(os.path.join(path, 't10k-labels-idx1-ubyte'))
+	loaded = np.fromfile(file=f, dtype=np.uint8)
+	testY = loaded[8:].reshape((10000)).astype(np.int32)
+	testY = one_hot(testY, args.output_dim)
+
+	if args.is_train:
+		X = tf.convert_to_tensor(trainX, dtype=tf.float32) / 255.
+		Y = tf.convert_to_tensor(trainY, dtype=tf.float32)
+		data_count = len(trainX)
+	else:
+		X = tf.convert_to_tensor(testX, dtype=tf.float32) / 255.
+		Y = tf.convert_to_tensor(testY, dtype=tf.float32)
+		data_count = len(testX)		
+
+	input_queue = tf.train.slice_input_producer([X, Y],shuffle=True)
+	images = tf.image.resize_images(input_queue[0] ,[args.input_width, args.input_height])
+	labels = input_queue[1]
+
+	if args.rotate:
+		angle = tf.random_uniform([1], minval=-30, maxval=30, dtype=tf.float32)
+		radian = angle * math.pi / 180
+		images = tf.contrib.image.rotate(images, radian)
+
+	X, Y = tf.train.batch([images, labels],
+						  batch_size=args.batch_size
+						  )
+	return X, Y, data_count
 
 def fashion_mnist_reader(args, path):
 	#Training Data
@@ -272,7 +296,7 @@ def load_data(args):
 		images, labels, data_count = fashion_mnist_reader(args, path)
 	if args.data == "affnist":
 		images, labels, data_count = affnist_reader(args, path)					
-	elif args.data == "catsdogs":#currently not working well using capsule_dynamic
-		images, labels, data_count = catsdogs_reader(args, path)
+	elif args.data == "smallNORB":#currently not working well using capsule_dynamic
+		images, labels, data_count = smallNORB_reader(args, path)
 
 	return images, labels, data_count 

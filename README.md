@@ -1,5 +1,13 @@
 # Testing Capsule Network on various datasets
 
+This repository contains different tests performed on a capsule network model. 
+
+Test 1 : Capsule Network on mnist dataset
+Test 2 : Capsule Network on fashion-mnist dataset
+Test 3 : Robustness of Capsule Network on randomly rotated mnist datset
+Test 4 : Robustness of Capsule Network on affine transformation
+
+
 ## Included datasets
 * [mnist](http://yann.lecun.com/exdb/mnist/)
 * [fashion-mnist](https://github.com/zalandoresearch/fashion-mnist/tree/master/data/fashion)
@@ -7,11 +15,15 @@
 * smallNORB (Coming soon)
 
 ## Network Model
-* baseline_network (Convolutional Neural Network)
+* baseline_network (Convolutional Neural Network as described in CapsNet paper)
 * capsule_dynamic (Capsule Network with Dynamic Routing)
-* *capsule_em* (Coming soon)
+* capsule_em *(Coming soon)*
 
 ## Requirements
+* python 2.7
+* Tensorflow 1.3
+* scipy
+
 
 ## How to run Training & Testing
 Example code to train the capsule_dynamic(CapsNet with dynamic routing) model on mnist dataset.
