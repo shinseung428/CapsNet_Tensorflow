@@ -8,7 +8,8 @@ This repository contains different tests performed on a capsule network model.
 [**Test 4 : Robustness of Capsule Network on affine transformation**](#test-4-mnist---affnist)  
 
 
-## Included datasets
+## Available dataset
+
 * [mnist](http://yann.lecun.com/exdb/mnist/)
 * [fashion-mnist](https://github.com/zalandoresearch/fashion-mnist/tree/master/data/fashion)
 * [affnist](http://www.cs.toronto.edu/~tijmen/affNIST/32x/transformed/)

@@ -8,9 +8,6 @@ import sys
 sys.path.insert(0, './models')
 from baseline_network import baseline_network
 from capsule_dynamic import capsule_dynamic
-# from capsule_em import capsule_em
-
-
 from manager import Manager
 # from capsule_em import capsule_em
 #============================================================================================

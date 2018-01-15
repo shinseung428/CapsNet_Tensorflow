@@ -77,8 +77,6 @@ class Manager():
 
 
 	def test(self, sess, model):
-		# tf.global_variables_initializer().run()
-
 		saver = tf.train.Saver()		
 
 		last_ckpt = tf.train.latest_checkpoint(self.checkpoints_path)
