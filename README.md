@@ -137,7 +137,7 @@ Two models were then tested on randomly rotated(-30 to +30) mnist test set. The 
 
 
 ## Test 4 (mnist -> affnist)
-**size of the input(in main.py) should be changed to 40x40 before running this test** 
+**size of the input(in main.py) should be changed to 40x40 before running this test**  
 Code to run the test
 ```
 $ python main.py --model=capsule_dynamic --data=mnist --random_pos=True
