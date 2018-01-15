@@ -132,11 +132,11 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=mnist --rotate=
 
 The baseline_network(CNN) and capsule_dynamic(CapsNet with dynamic routing) models were first trained on the normal 28x28 mnist dataset. Both network achieved high accuracy on the test set (both close to 99%). 
 
-Two models were then tested on randomly rotated(-30 to +30) mnist test set. Figure 1 shows some of the inputs tested on both models. The baseline_network achieved ___ accuracy and a capsule_dynamic achieved ___ accuracy.
+Two models were then tested on randomly rotated(-30 to +30) mnist test set. The baseline_network achieved 74.10% accuracy and a capsule_dynamic model achieved 77.68% accuracy.
 
 
 ## Test 4 (mnist -> affnist)
-**size of the input should be changed to 40x40 before running this code** 
+**size of the input(in main.py) should be changed to 40x40 before running this test** 
 Code to run the test
 ```
 $ python main.py --model=capsule_dynamic --data=mnist --random_pos=True
