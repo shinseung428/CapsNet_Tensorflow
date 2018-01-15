@@ -14,6 +14,27 @@ This repository contains different tests performed on a capsule network model.
 * [affnist](http://www.cs.toronto.edu/~tijmen/affNIST/32x/transformed/)
 * smallNORB (Coming soon)
 
+### path setting
+```
+-data
+	-mnist
+		-t10k-images.idx3-ubyte
+		-t10k-labels.idx1-ubyte
+		-train-images.idx3-ubyte
+		-train-labels.idx1-ubyte
+	-fashion-mnist
+		-fashion-mnist_test.csv
+		-fashion-mnist_train.csv
+		-t10k-images-idx3-ubyte
+		-t10k-labels-idx1-ubyte
+		-train-images-idx3-ubyte
+		-train-labels-idx1-ubyte
+	-affnist
+		-test
+			-extracted .mat files here
+		-train
+			-extracted .mat files here
+```
 ## Network Model
 * baseline_network (Convolutional Neural Network as described in CapsNet paper)
 * capsule_dynamic (Capsule Network with Dynamic Routing)
