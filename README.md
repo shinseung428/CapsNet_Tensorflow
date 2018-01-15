@@ -2,10 +2,10 @@
 
 This repository contains different tests performed on a capsule network model. 
 
-[**Test 1 : Capsule Network on mnist dataset**](#test-1)  
-[**Test 2 : Capsule Network on fashion-mnist dataset**](#test-2)  
-[**Test 3 : Robustness of Capsule Network on randomly rotated mnist datset**](#test-3)    
-[**Test 4 : Robustness of Capsule Network on affine transformation**](#test-4)  
+[**Test 1 : Capsule Network on mnist dataset**](#test-1-mnist---mnist)  
+[**Test 2 : Capsule Network on fashion-mnist dataset**](#test-2-fashion-mnist---fashion-mnist)  
+[**Test 3 : Robustness of Capsule Network on randomly rotated mnist datset**](#test-3-mnist---mnistrotated)  
+[**Test 4 : Robustness of Capsule Network on affine transformation**](#test-4-mnist---affnist)  
 
 
 ## Included datasets
