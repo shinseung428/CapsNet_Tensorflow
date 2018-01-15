@@ -118,10 +118,10 @@ def small_norb_reader(args, path):
 	test_cat = parseNORBFile(file_handle)
 
 	trainX = extract_patch(train_dat)
-	trainY = one_hot(train_cat,args.output_dim)
+	trainY = one_hot(train_cat, args.output_dim)
 	
 	testX = extract_patch(test_dat)
-	testY = one_hot(test_cat,args.output_dim)
+	testY = one_hot(test_cat, args.output_dim)
 
 	if args.is_train:
 		X = tf.convert_to_tensor(trainX, dtype=tf.float32) / 255.
@@ -130,10 +130,18 @@ def small_norb_reader(args, path):
 	else:
 		X = tf.convert_to_tensor(testX, dtype=tf.float32) / 255.
 		Y = tf.convert_to_tensor(testY, dtype=tf.float32)
+
 		data_count = len(testX)		
 
 	input_queue = tf.train.slice_input_producer([X, Y],shuffle=True)
-	images = tf.image.resize_images(input_queue[0] ,[args.input_width, args.input_height])
+		
+	if args.is_train:	
+		images = tf.image.resize_images(input_queue[0] ,[48, 48])
+		images = tf.random_crop(images, [32, 32, 1])
+	else:
+		images = tf.image.resize_images(input_queue[0] ,[48, 48])
+		images = tf.image.central_crop(images, 0.6)
+
 	labels = input_queue[1]
 
 	if args.rotate:
