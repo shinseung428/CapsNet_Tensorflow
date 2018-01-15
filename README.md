@@ -14,7 +14,7 @@ This repository contains different tests performed on a capsule network model.
 * [mnist](http://yann.lecun.com/exdb/mnist/)
 * [fashion_mnist](https://github.com/zalandoresearch/fashion-mnist/tree/master/data/fashion)
 * [affnist](http://www.cs.toronto.edu/~tijmen/affNIST/32x/transformed/)
-* small_norb (Currently Training)
+* [small_norb](https://cs.nyu.edu/~ylclab/data/norb-v1.0-small/)
 
 ### path setting
 ```
