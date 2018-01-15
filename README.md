@@ -3,17 +3,18 @@
 This repository contains different tests performed on a capsule network model. 
 
 [**Test 1 : Capsule Network on mnist dataset**](#test-1-mnist---mnist)  
-[**Test 2 : Capsule Network on fashion-mnist dataset**](#test-2-fashion-mnist---fashion-mnist)  
-[**Test 3 : Robustness of Capsule Network on randomly rotated mnist datset**](#test-3-mnist---mnistrotated)  
-[**Test 4 : Robustness of Capsule Network on affine transformation**](#test-4-mnist---affnist)  
+[**Test 2 : Capsule Network on fashion_mnist dataset**](#test-2-fashion-mnist---fashion-mnist)  
+[**Test 3 : Capsule Network on small_norb dataset**](#test-3-small_norb---small_norb)  
+[**Test 4 : Robustness of Capsule Network on randomly rotated mnist datset**](#test-3-mnist---mnistrotated)  
+[**Test 5 : Robustness of Capsule Network on affine transformation**](#test-4-mnist---affnist)  
 
 
 ## Available dataset
 
 * [mnist](http://yann.lecun.com/exdb/mnist/)
-* [fashion-mnist](https://github.com/zalandoresearch/fashion-mnist/tree/master/data/fashion)
+* [fashion_mnist](https://github.com/zalandoresearch/fashion-mnist/tree/master/data/fashion)
 * [affnist](http://www.cs.toronto.edu/~tijmen/affNIST/32x/transformed/)
-* smallNORB (Coming soon)
+* small_norb (Currently Training)
 
 ### path setting
 ```
@@ -110,8 +111,25 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=fashion-mnist
 
 Both baseline_network and capsule_dynamic network achieved about 89% accuracy on the fashion-mnist dataset. 
 
+## Test 3 (smallNORB -> smallNORB(randomly cropped))
 
-## Test 3 (mnist -> mnist(rotated))
+Code to run the test
+```
+$ python main.py --model=capsule_dynamic --data=small_norb
+```
+
+```
+$ python main.py --is_train=False --model=capsule_dynamic --data=small_norb
+```
+
+| Model            | Parameters | Accuracy |
+| ---------------- | ---------- | -------- |
+| baseline_network |      |    |
+| capsule_dynamic  |      |    |
+
+
+
+## Test 4 (mnist -> mnist(rotated))
 Code to run the test
 ```
 $ python main.py --model=capsule_dynamic --data=mnist
@@ -136,7 +154,7 @@ The baseline_network(CNN) and capsule_dynamic(CapsNet with dynamic routing) mode
 Two models were then tested on randomly rotated(-30 to +30) mnist test set. The baseline_network achieved 74.10% accuracy and a capsule_dynamic model achieved 77.68% accuracy.
 
 
-## Test 4 (mnist -> affnist)
+## Test 5 (mnist -> affnist)
 **size of the input(in main.py) should be changed to 40x40 before running this test**  
 Code to run the test
 ```
