@@ -34,7 +34,6 @@ class capsule_dynamic():
 		self.m_minus = args.m_minus
 		self.reg_scale = args.reg_scale
 
-		print "Loading Data..."
 		self.X, self.Y, self.data_count = load_data(args)
 		self.build_model()
 		self.build_loss()

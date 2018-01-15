@@ -5,7 +5,6 @@ from glob import glob
 import os
 import math
 
-	
 
 def place_random(trainX):
 	#randomly place 28x28 mnist image on 40x40 background
@@ -97,52 +96,30 @@ def affnist_reader(args, path):
 	return X, Y, data_count
 
 
-def smallNORB_reader(args, path):
+def small_norb_reader(args, path):
+	pass	
+	# if args.is_train:
+	# 	X = tf.convert_to_tensor(trainX, dtype=tf.float32) / 255.
+	# 	Y = tf.convert_to_tensor(trainY, dtype=tf.float32)
+	# 	data_count = len(trainX)
+	# else:
+	# 	X = tf.convert_to_tensor(testX, dtype=tf.float32) / 255.
+	# 	Y = tf.convert_to_tensor(testY, dtype=tf.float32)
+	# 	data_count = len(testX)		
 
-	#Training Data
-	f = open(os.path.join(path, 'smallnorb-5x46789x9x18x6x2x96x96-training-dat.mat'))
-	loaded = np.fromfile(file=f, dtype=np.uint8)
-	trainX = loaded.reshape((24300, 96, 96, 1)).astype(np.float32)
-	
+	# input_queue = tf.train.slice_input_producer([X, Y],shuffle=True)
+	# images = tf.image.resize_images(input_queue[0] ,[args.input_width, args.input_height])
+	# labels = input_queue[1]
 
-	f = open(os.path.join(path, 'smallnorb-5x46789x9x18x6x2x96x96-training-cat.mat'))
-	loaded = np.fromfile(file=f, dtype=np.uint8)
-	trainY = loaded[8:].reshape((24300)).astype(np.int32)
-	trainY = one_hot(trainY, args.output_dim)
+	# if args.rotate:
+	# 	angle = tf.random_uniform([1], minval=-30, maxval=30, dtype=tf.float32)
+	# 	radian = angle * math.pi / 180
+	# 	images = tf.contrib.image.rotate(images, radian)
 
-
-	#Test Data
-	f = open(os.path.join(path, 't10k-images-idx3-ubyte'))
-	loaded = np.fromfile(file=f, dtype=np.uint8)
-	testX = loaded[16:].reshape((10000, 28, 28, 1)).astype(np.float32)
-
-	f = open(os.path.join(path, 't10k-labels-idx1-ubyte'))
-	loaded = np.fromfile(file=f, dtype=np.uint8)
-	testY = loaded[8:].reshape((10000)).astype(np.int32)
-	testY = one_hot(testY, args.output_dim)
-
-	if args.is_train:
-		X = tf.convert_to_tensor(trainX, dtype=tf.float32) / 255.
-		Y = tf.convert_to_tensor(trainY, dtype=tf.float32)
-		data_count = len(trainX)
-	else:
-		X = tf.convert_to_tensor(testX, dtype=tf.float32) / 255.
-		Y = tf.convert_to_tensor(testY, dtype=tf.float32)
-		data_count = len(testX)		
-
-	input_queue = tf.train.slice_input_producer([X, Y],shuffle=True)
-	images = tf.image.resize_images(input_queue[0] ,[args.input_width, args.input_height])
-	labels = input_queue[1]
-
-	if args.rotate:
-		angle = tf.random_uniform([1], minval=-30, maxval=30, dtype=tf.float32)
-		radian = angle * math.pi / 180
-		images = tf.contrib.image.rotate(images, radian)
-
-	X, Y = tf.train.batch([images, labels],
-						  batch_size=args.batch_size
-						  )
-	return X, Y, data_count
+	# X, Y = tf.train.batch([images, labels],
+	# 					  batch_size=args.batch_size
+	# 					  )
+	# return X, Y, data_count
 
 def fashion_mnist_reader(args, path):
 	#Training Data
@@ -294,9 +271,11 @@ def load_data(args):
 		images, labels, data_count = mnist_reader(args, path)
 	elif args.data == "fashion_mnist":
 		images, labels, data_count = fashion_mnist_reader(args, path)
-	if args.data == "affnist":
+	elif args.data == "affnist":
 		images, labels, data_count = affnist_reader(args, path)					
-	elif args.data == "smallNORB":#currently not working well using capsule_dynamic
-		images, labels, data_count = smallNORB_reader(args, path)
+	# elif args.data == "small_norb":
+	# 	images, labels, data_count = small_norb_reader(args, path)
+	else:
+		print "Invalid dataset name!!"
 
 	return images, labels, data_count 

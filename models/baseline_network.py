@@ -22,7 +22,6 @@ class baseline_network():
 		self.learning_rate = args.learning_rate
 		self.momentum = args.momentum
 
-		print "Loading Data..."
 		self.X, self.Y, self.data_count = load_data(args)
 		self.build_model()
 		self.build_loss()

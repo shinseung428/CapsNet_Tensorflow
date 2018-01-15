@@ -2,10 +2,10 @@
 
 This repository contains different tests performed on a capsule network model. 
 
-Test 1 : Capsule Network on mnist dataset
-Test 2 : Capsule Network on fashion-mnist dataset
-Test 3 : Robustness of Capsule Network on randomly rotated mnist datset
-Test 4 : Robustness of Capsule Network on affine transformation
+Test 1 : Capsule Network on mnist dataset 
+Test 2 : Capsule Network on fashion-mnist dataset 
+Test 3 : Robustness of Capsule Network on randomly rotated mnist datset 
+Test 4 : Robustness of Capsule Network on affine transformation 
 
 
 ## Included datasets
@@ -111,6 +111,7 @@ Two models were then tested on randomly rotated(-30 to +30) mnist test set. Figu
 
 
 ## Test 4 (mnist -> affnist)
+**size of the input should be changed to 40x40 before running this code** 
 Code to run the test
 ```
 $ python main.py --model=capsule_dynamic --data=mnist --random_pos=True

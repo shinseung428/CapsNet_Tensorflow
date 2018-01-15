@@ -1,4 +1,4 @@
-data/
-graphs/
-checkpoints/
+data/*
+graphs/*
+checkpoints/*
 *.pyc
