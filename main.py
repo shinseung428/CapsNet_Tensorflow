@@ -76,11 +76,17 @@ def main(_):
             pass
             # model = capsule_em(args)        
 
+
+        #create graph and checkpoints folder if they don't exist
+        if not os.path.exists(args.checkpoints_path)
+            os.makedirs(args.checkpoints_path)
+        if not os.path.exists(args.graph_path)
+            os.makedirs(args.graph_path)
+            
         #create a subfolder in checkpoints folder
         args.checkpoints_path = os.path.join(args.checkpoints_path, args.model + "/")
         if not os.path.exists(args.checkpoints_path):
             os.makedirs(args.checkpoints_path)
-
         args.graph_path = os.path.join(args.graph_path, args.model + "/")
         if not os.path.exists(args.graph_path):
             os.makedirs(args.graph_path)
