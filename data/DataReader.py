@@ -5,6 +5,7 @@ from glob import glob
 import os
 import math
 
+from norb_reader import *
 
 def place_random(trainX):
 	#randomly place 28x28 mnist image on 40x40 background
@@ -97,7 +98,61 @@ def affnist_reader(args, path):
 
 
 def small_norb_reader(args, path):
-	pass	
+	def extract_patch(dataset):
+		extracted = []
+		for img in train_dat:
+			img = img[0].reshape(96,96,1)
+			patch1 = img[:48,:48]
+			patch2 = img[:48,48:]
+			patch3 = img[48:,:48]
+			patch4 = img[48:,48:]
+			extracted.append(patch1)
+			extracted.append(patch2)
+			extracted.append(patch3)
+			extracted.append(patch4)
+		return np.array(extracted)
+	#Training Data
+	file_handle = open(getPath('train','dat'))
+	train_dat = parseNORBFile(file_handle)
+	file_handle = open(getPath('train','cat'))
+	train_cat = parseNORBFile(file_handle)
+
+	#Test Data
+	file_handle = open(getPath('test','dat'))
+	test_dat = parseNORBFile(file_handle)
+	file_handle = open(getPath('test','cat'))
+	test_cat = parseNORBFile(file_handle)
+
+	trainX = extract_patch(train_dat)
+	trainY = np.repeat(train_cat, 4)
+	trainY = one_hot(trainY,args.output_dim)
+	
+	testX = extract_patch(test_dat)
+	testY = np.repeat(test_cat, 4)
+	testY = one_hot(testY,args.output_dim)
+
+	if args.is_train:
+		X = tf.convert_to_tensor(trainX, dtype=tf.float32) / 255.
+		Y = tf.convert_to_tensor(trainY, dtype=tf.float32)
+		data_count = len(trainX)
+	else:
+		X = tf.convert_to_tensor(testX, dtype=tf.float32) / 255.
+		Y = tf.convert_to_tensor(testY, dtype=tf.float32)
+		data_count = len(testX)		
+
+	input_queue = tf.train.slice_input_producer([X, Y],shuffle=True)
+	images = tf.image.resize_images(input_queue[0] ,[args.input_width, args.input_height])
+	labels = input_queue[1]
+
+	if args.rotate:
+		angle = tf.random_uniform([1], minval=-30, maxval=30, dtype=tf.float32)
+		radian = angle * math.pi / 180
+		images = tf.contrib.image.rotate(images, radian)
+
+	X, Y = tf.train.batch([images, labels],
+						  batch_size=args.batch_size
+						  )
+	return X, Y, data_count
 
 
 def fashion_mnist_reader(args, path):
@@ -210,8 +265,8 @@ def load_data(args):
 		images, labels, data_count = fashion_mnist_reader(args, path)
 	elif args.data == "affnist":
 		images, labels, data_count = affnist_reader(args, path)					
-	# elif args.data == "small_norb":
-	# 	images, labels, data_count = small_norb_reader(args, path)
+	elif args.data == "small_norb":
+		images, labels, data_count = small_norb_reader(args, path)
 	else:
 		print "Invalid dataset name!!"
 

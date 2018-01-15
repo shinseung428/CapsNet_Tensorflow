@@ -8,7 +8,7 @@ import numpy as np
 import os
 
 from architecture import *
-from DataReader import *
+from data.DataReader import *
 
 class baseline_network():
 	def __init__(self, args):

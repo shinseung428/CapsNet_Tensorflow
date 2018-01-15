@@ -9,7 +9,7 @@ import os
 
 from architecture import *
 from CapsLayer import CapsLayer
-from DataReader import *
+from data.DataReader import *
 
 epsilon = 1e-9
 
@@ -71,7 +71,7 @@ class capsule_dynamic():
 		
 
 			caps2 = capsule.digitCaps(caps1,
-									  num_outputs=10,
+									  num_outputs=self.output_dim,
 									  vec_length=16,
 									  iter_routing=3,
 									  name="digitcaps_1")

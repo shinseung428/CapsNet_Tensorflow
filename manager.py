@@ -2,6 +2,8 @@
 import tensorflow as tf
 import cv2
 
+
+
 class Manager():
 	def __init__(self, args):
 		self.learning_rate = args.learning_rate
