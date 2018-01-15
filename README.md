@@ -2,13 +2,10 @@
 
 This repository contains different tests performed on a capsule network model. 
 
-**Test 1 : Capsule Network on mnist dataset** 
-
-**Test 2 : Capsule Network on fashion-mnist dataset** 
-
-**Test 3 : Robustness of Capsule Network on randomly rotated mnist datset** 
-
-**Test 4 : Robustness of Capsule Network on affine transformation** 
+**Test 1 : Capsule Network on mnist dataset**  
+**Test 2 : Capsule Network on fashion-mnist dataset**  
+**Test 3 : Robustness of Capsule Network on randomly rotated mnist datset**  
+**Test 4 : Robustness of Capsule Network on affine transformation**  
 
 
 ## Included datasets
@@ -20,23 +17,23 @@ This repository contains different tests performed on a capsule network model.
 ### path setting
 ```
 -data
-	-mnist
-		-t10k-images.idx3-ubyte
-		-t10k-labels.idx1-ubyte
-		-train-images.idx3-ubyte
-		-train-labels.idx1-ubyte
-	-fashion-mnist
-		-fashion-mnist_test.csv
-		-fashion-mnist_train.csv
-		-t10k-images-idx3-ubyte
-		-t10k-labels-idx1-ubyte
-		-train-images-idx3-ubyte
-		-train-labels-idx1-ubyte
-	-affnist
-		-test
-			-extracted .mat files here
-		-train
-			-extracted .mat files here
+  -mnist
+    -t10k-images.idx3-ubyte
+    -t10k-labels.idx1-ubyte
+    -train-images.idx3-ubyte
+    -train-labels.idx1-ubyte
+  -fashion-mnist
+    -fashion-mnist_test.csv
+    -fashion-mnist_train.csv
+    -t10k-images-idx3-ubyte
+    -t10k-labels-idx1-ubyte
+    -train-images-idx3-ubyte
+    -train-labels-idx1-ubyte
+  -affnist
+    -test
+      -extracted .mat files here
+    -train
+      -extracted .mat files here
 ```
 ## Network Model
 * baseline_network (Convolutional Neural Network as described in CapsNet paper)
