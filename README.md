@@ -2,10 +2,10 @@
 
 This repository contains different tests performed on a capsule network model. 
 
-**Test 1 : Capsule Network on mnist dataset**  
-**Test 2 : Capsule Network on fashion-mnist dataset**  
-**Test 3 : Robustness of Capsule Network on randomly rotated mnist datset**  
-**Test 4 : Robustness of Capsule Network on affine transformation**  
+[**Test 1 : Capsule Network on mnist dataset**](##Test1)  
+[**Test 2 : Capsule Network on fashion-mnist dataset**](##Test2)  
+[**Test 3 : Robustness of Capsule Network on randomly rotated mnist datset**](##Test3)    
+[**Test 4 : Robustness of Capsule Network on affine transformation**](##Test4)  
 
 
 ## Included datasets
@@ -31,9 +31,13 @@ This repository contains different tests performed on a capsule network model.
     -train-labels-idx1-ubyte
   -affnist
     -test
-      -extracted .mat files here
+      -1.mat
+      -2.mat
+      -...
     -train
-      -extracted .mat files here
+      -1.mat
+      -2.mat
+      -...
 ```
 ## Network Model
 * baseline_network (Convolutional Neural Network as described in CapsNet paper)
