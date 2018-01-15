@@ -159,4 +159,8 @@ This test runs two models on 40x40 randomly placed mnist images. No affine trans
 
 Comparing the baseline network with capsule network with dynamic routing shows similar result as mentioned in CapsNet paper. The baseline network achieves 61.70% accuracy and the capsule network achieves 75.89% accuray.
 
+## ToDo
+* Implement Matrix Capsules with EM Routing 
+* Add smallNORB dataset
+
 
