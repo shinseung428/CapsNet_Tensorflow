@@ -3,6 +3,8 @@ data/mnist
 data/fashion_mnist
 data/small_norb
 
+models/*.pyc
+
 graphs/
 checkpoints/
 *.pyc

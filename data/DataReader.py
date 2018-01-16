@@ -102,9 +102,12 @@ def small_norb_reader(args, path):
 	def extract_patch(dataset):
 		extracted = []
 		for img in train_dat:
-			img = img[0].reshape(96,96,1)
-			extracted.append(img)
+			img_ = img[0].reshape(96,96,1)
+			extracted.append(img_)
+			img_ = img[1].reshape(96,96,1)
+			extracted.append(img_)					
 		return np.array(extracted)
+	
 	#Training Data
 	file_handle = open(getPath('train','dat'))
 	train_dat = parseNORBFile(file_handle)
@@ -118,10 +121,12 @@ def small_norb_reader(args, path):
 	test_cat = parseNORBFile(file_handle)
 
 	trainX = extract_patch(train_dat)
-	trainY = one_hot(train_cat, args.output_dim)
-	
+	trainY = np.repeat(train_cat, 2)
+	trainY = one_hot(trainY, args.output_dim)
+
 	testX = extract_patch(test_dat)
-	testY = one_hot(test_cat, args.output_dim)
+	testY = np.repeat(test_cat, 2)
+	testY = one_hot(testY, args.output_dim)
 
 	if args.is_train:
 		X = tf.convert_to_tensor(trainX, dtype=tf.float32) / 255.
@@ -152,6 +157,7 @@ def small_norb_reader(args, path):
 	X, Y = tf.train.batch([images, labels],
 						  batch_size=args.batch_size
 						  )
+
 	return X, Y, data_count
 
 

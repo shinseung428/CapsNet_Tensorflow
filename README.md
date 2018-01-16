@@ -127,10 +127,15 @@ $ python main.py --model=capsule_dynamic --data=small_norb
 $ python main.py --is_train=False --model=capsule_dynamic --data=small_norb
 ```
 
+***Trained randomly cropped 32x32 small_norb images***
+![Alt text](images/smallnorb_train.jpg?raw=true "smallnorb")
+***tested center cropped 32x32 small_norb images***
+![Alt text](images/smallnorb_test.jpg?raw=true "smallnorb")
+
 | Model            | Parameters | Accuracy |
 | ---------------- | ---------- | -------- |
-| baseline_network |    19.3M   |    |
-| capsule_dynamic  |     8.3M   |    |
+| baseline_network |    19.3M   |  99.16%  |
+| capsule_dynamic  |     8.3M   |  99.56%  |
 
 
 
