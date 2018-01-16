@@ -117,7 +117,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=fashion-mnist
 Both baseline_network and capsule_dynamic network achieved about 89% accuracy on the fashion-mnist dataset. 
 
 ## Test 3 (smallNORB(random crop) -> smallNORB(center crop))
-
+**size of the input(in main.py) should be changed to 32x32 before running this test**  
 Code to run the test
 ```
 $ python main.py --model=capsule_dynamic --data=small_norb
