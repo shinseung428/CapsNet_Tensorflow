@@ -16,7 +16,7 @@ This repository contains different tests performed on a capsule network model.
 * [affnist](http://www.cs.toronto.edu/~tijmen/affNIST/32x/transformed/)
 * [small_norb](https://cs.nyu.edu/~ylclab/data/norb-v1.0-small/)
 
-### path setting
+### data folder setting
 ```
 -data
   -mnist
@@ -40,6 +40,11 @@ This repository contains different tests performed on a capsule network model.
       -1.mat
       -2.mat
       -...
+  -small_norb
+      -smallnorb-5x46789x9x18x6x2x96x96-training-dat.mat
+      -smallnorb-5x46789x9x18x6x2x96x96-training-cat.mat
+      -smallnorb-5x01235x9x18x6x2x96x96-testing-dat.mat
+      -smallnorb-5x01235x9x18x6x2x96x96-testing-cat.mat
 ```
 ## Network Model
 * baseline_network (Convolutional Neural Network as described in CapsNet paper)
@@ -124,8 +129,8 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=small_norb
 
 | Model            | Parameters | Accuracy |
 | ---------------- | ---------- | -------- |
-| baseline_network |      |    |
-| capsule_dynamic  |      |    |
+| baseline_network |    19.3M   |    |
+| capsule_dynamic  |     8.3M   |    |
 
 
 

@@ -140,7 +140,7 @@ def small_norb_reader(args, path):
 		images = tf.random_crop(images, [32, 32, 1])
 	else:
 		images = tf.image.resize_images(input_queue[0] ,[48, 48])
-		images = tf.image.central_crop(images, 0.6)
+		images = tf.image.resize_image_with_crop_or_pad(images, 32, 32)
 
 	labels = input_queue[1]
 
