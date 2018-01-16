@@ -114,7 +114,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=fashion-mnist
 | capsule_dynamic  |     8.2M   |  89.02%  |
 
 
-Both baseline_network and capsule_dynamic networks achieved about 89% accuracy on the fashion-mnist dataset. This result is obtained after training the network for 5 epochs. Higher accuracy is expected when the network is trained more than 5 epochs. 
+Both baseline_network and capsule_dynamic networks achieved about 89% accuracy on the fashion-mnist dataset. This result was obtained after training the network for 5 epochs. Higher accuracy is expected when the network is trained more than 5 epochs. 
 
 ## Test 3 (smallNORB(random crop) -> smallNORB(center crop))
 **size of the input(in main.py) should be changed to 32x32 before running this test**  
