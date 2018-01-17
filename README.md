@@ -85,7 +85,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=mnist
 ***Reconstructed mnist images***
 ![Alt text](images/mnist_recon.jpg?raw=true "mnist reconstructed")
 
-| Model            | Parameters | Accuracy |
+| Model            | Parameters | Test Accuracy |
 | ---------------- | ---------- | -------- |
 | baseline_network |    13.2M   |  99.03 % |
 | capsule_dynamic  |     8.2M   |  99.25 % |
@@ -108,7 +108,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=fashion-mnist
 ***Reconstructed fashion-mnist images***
 ![Alt text](images/fashion_mnist_recon.jpg?raw=true "fashion-mnist reconstructed") 
 
-| Model            | Parameters | Accuracy |
+| Model            | Parameters | Test Accuracy |
 | ---------------- | ---------- | -------- |
 | baseline_network |    13.2M   |  89.94%  |
 | capsule_dynamic  |     8.2M   |  89.02%  |
@@ -132,7 +132,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=small_norb
 ***Tested center cropped 32x32 small_norb images***
 ![Alt text](images/smallnorb_test.jpg?raw=true "smallnorb")
 
-| Model            | Parameters | Accuracy |
+| Model            | Parameters | Test Accuracy |
 | ---------------- | ---------- | -------- |
 | baseline_network |    19.3M   |  99.16%  |
 | capsule_dynamic  |     8.3M   |  99.56%  |
@@ -153,7 +153,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=mnist --rotate=
 ***Tested randomly rotated mnist images***
 ![Alt text](images/mnist_rotated.jpg?raw=true "rotated mnist")
 
-| Model            | Parameters | Accuracy |
+| Model            | Parameters | Test Accuracy |
 | ---------------- | ---------- | -------- |
 | baseline_network |    13.2M   |  74.10 % |
 | capsule_dynamic  |     8.2M   |  77.68 % |
@@ -178,7 +178,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=affnist
 ***Tested 40x40 affnist images***
 ![Alt text](images/affnist.jpg?raw=true "affnist") 
 
-| Model            | Parameters | Accuracy |
+| Model            | Parameters | Test Accuracy |
 | ---------------- | ---------- | -------- |
 | baseline_network |    35.4M   |  61.70 % |
 | capsule_dynamic  |    13.5M   |  75.89 % |

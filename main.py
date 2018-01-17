@@ -91,9 +91,10 @@ def main(_):
         if not os.path.exists(args.graph_path):
             os.makedirs(args.graph_path)
 
+        #manager performs all the training/testing
         manager = Manager(args)
 
-        if args.is_train == True:
+        if args.is_train:
             print 'Start Training...'
             manager.train(sess, model)
         else:

@@ -17,6 +17,7 @@ class Manager():
 		self.batch_size = args.batch_size
 
 
+	#function to train the network
 	def train(self, sess, model):
 
 		#optimizer
@@ -77,10 +78,10 @@ class Manager():
 		sess.close()			
 		print("Done.")
 
-
+	#function to start testing
 	def test(self, sess, model):
-		saver = tf.train.Saver()		
 
+		saver = tf.train.Saver()		
 		last_ckpt = tf.train.latest_checkpoint(self.checkpoints_path)
 		saver.restore(sess, last_ckpt)
 		print "Loaded model file from " + str(last_ckpt)
@@ -93,11 +94,7 @@ class Manager():
 		while 1:
 			loss = sess.run(model.loss)
 			accuracy = sess.run(model.accuracy)
-
-			# image = sess.run(model.X)			
-			# cv2.imshow("input",image[0])
-			# cv2.waitKey()
-			
+	
 			print "Step [%d] Test Loss: [%.4f] Accuracy [%.4f]" % (step, loss, accuracy)
 			
 			ave_acc += accuracy
