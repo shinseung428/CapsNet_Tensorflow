@@ -9,7 +9,7 @@ sys.path.insert(0, './models')
 from baseline_network import baseline_network
 from capsule_dynamic import capsule_dynamic
 from manager import Manager
-# from capsule_em import capsule_em
+from capsule_em import capsule_em
 #============================================================================================
 
 def str2bool(v):
@@ -73,8 +73,7 @@ def main(_):
         elif args.model == "capsule_dynamic":
             model = capsule_dynamic(args)
         elif args.model == "capsule_em":
-            pass
-            # model = capsule_em(args)        
+            model = capsule_em(args)        
 
 
         #create graph and checkpoints folder if they don't exist
