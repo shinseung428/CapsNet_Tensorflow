@@ -42,16 +42,16 @@ class CapsLayer(object):
 
 	def routing(self, input, b_IJ, out_num, vec_len, iter_routing):
 		with tf.variable_scope("routing") as scope:
+			#8x16 weight matrices in the paper
+			#shape of this matrix can be changed freely
 			weight = tf.get_variable("Weight", shape=[1, input.shape[1].value, out_num, input.shape[3].value, vec_len], dtype=tf.float32,
 									 initializer=tf.contrib.layers.xavier_initializer())
-									 # initializer=tf.random_normal_initializer(stddev=0.01))
 									 
-
+			#tile tensors to match dimensions
 			input = tf.tile(input, [1, 1, out_num, 1, 1])
 			weight = tf.tile(weight, [self.batch_size, 1, 1, 1, 1])
 
 			u_hat = tf.matmul(weight, input, transpose_a=True)
-			
 			u_hat_stopped = tf.stop_gradient(u_hat, name='stop_gradient')
 
 			for routenum in range(iter_routing):

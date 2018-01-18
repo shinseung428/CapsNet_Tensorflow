@@ -22,6 +22,7 @@ class baseline_network():
 		self.learning_rate = args.learning_rate
 		self.momentum = args.momentum
 
+		#load image data X and label data Y
 		self.X, self.Y, self.data_count = load_data(args)
 		self.build_model()
 		self.build_loss()

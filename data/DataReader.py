@@ -5,6 +5,7 @@ from glob import glob
 import os
 import math
 import cv2
+import cPickle
 
 from norb_reader import *
 
@@ -88,6 +89,71 @@ def affnist_reader(args, path):
 
 	if args.rotate:
 		angle = tf.random_uniform([1], minval=-60, maxval=60, dtype=tf.float32)
+		radian = angle * math.pi / 180
+		images = tf.contrib.image.rotate(images, radian)
+
+	X, Y = tf.train.batch([images, labels],
+						  batch_size=args.batch_size
+						  )
+
+	return X, Y, data_count
+
+def cifar_reader(args, path):
+	def unpickle(file):
+		with open(file, 'rb') as fo:
+			dict = cPickle.load(fo)
+		return dict
+
+	train_path = glob(os.path.join(path, "data_batch_*"))	
+	test_path = glob(os.path.join(path, "test_batch"))
+
+	trainX = []
+	trainY = []
+	for p in train_path:
+		extracted = unpickle(p)
+		image = None
+		for t in extracted['data']:
+			r = t[:1024].reshape(32,32,1)
+			g = t[1024:2048].reshape(32,32,1)
+			b = t[2048:].reshape(32,32,1)
+			image = np.concatenate([r,g,b], axis=2)
+			trainX.append(image)
+		trainY.append(extracted['labels'])
+
+	trainX = np.array(trainX)	
+	trainY = np.concatenate(np.array(trainY), axis=0)	
+	trainY = one_hot(trainY, args.output_dim)
+
+	testX = []
+	testY = []
+	extracted = unpickle(test_path[0])
+	for t in extracted['data']:
+		r = t[:1024].reshape(32,32,1)
+		g = t[1024:2048].reshape(32,32,1)
+		b = t[2048:].reshape(32,32,1)
+		image = np.concatenate([r,g,b], axis=2)
+		testX.append(image)
+	testY.append(extracted['labels'])
+	testX = np.array(testX)	
+	testY = np.concatenate(np.array(testY), axis=0)		
+	testY = one_hot(testY, args.output_dim)
+
+
+	if args.is_train:
+		X = tf.convert_to_tensor(trainX, dtype=tf.float32) / 255.
+		Y = tf.convert_to_tensor(trainY, dtype=tf.float32)
+		data_count = len(trainX)
+	else:
+		X = tf.convert_to_tensor(testX, dtype=tf.float32) / 255.
+		Y = tf.convert_to_tensor(testY, dtype=tf.float32)
+		data_count = len(testX)		
+
+	input_queue = tf.train.slice_input_producer([X, Y],shuffle=True)
+	images = tf.image.resize_images(input_queue[0] ,[args.input_width, args.input_height])
+	labels = input_queue[1]
+
+	if args.rotate:
+		angle = tf.random_uniform([1], minval=-30, maxval=30, dtype=tf.float32)
 		radian = angle * math.pi / 180
 		images = tf.contrib.image.rotate(images, radian)
 
@@ -273,6 +339,8 @@ def load_data(args):
 		images, labels, data_count = affnist_reader(args, path)					
 	elif args.data == "small_norb":
 		images, labels, data_count = small_norb_reader(args, path)
+	elif args.data == "cifar_10":
+		images, labels, data_count = cifar_reader(args, path)		
 	else:
 		print "Invalid dataset name!!"
 
