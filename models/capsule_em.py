@@ -7,7 +7,7 @@ import numpy as np
 import os
 
 from architecture import *
-from Capsule_EM import Capsule_EM
+from CapsLayer import CapsLayer
 from data.DataReader import *
 
 class capsule_em():
@@ -42,13 +42,13 @@ class capsule_em():
 		self.acc_summary = tf.summary.scalar("acc", self.accuracy)
 
 	def build_model(self):
-		self.CapsNetwork_EM(self.X, name="capsnet_em")
+		self.CapsNetwork(self.X, name="capsnet_em")
 
 		self.trainable_vars = tf.trainable_variables()
 		print "number of parameters: ", count_param(self.trainable_vars)
 
 
-	def CapsNetwork_EM(self, input, name="capsnet"):
+	def CapsNetwork(self, input, name="capsnet"):
 		with tf.variable_scope(name) as scope:
 			#first layer before creating primary caps layer
 			conv1 = tf.contrib.layers.conv2d(input, 32, 5, 2,
@@ -57,14 +57,14 @@ class capsule_em():
 											 scope="conv1")
 
 
-			capsule = Capsule_EM(self.batch_size)
+			capsule = CapsLayer(self.batch_size)
 
 			#Make Primary Capsule 
-			primaryCaps = capsule.primaryCaps(conv1, kernel=1, stride=1, num_outputs=32, name="primaryCaps")
+			primaryCaps = capsule.em_primaryCaps(conv1, kernel=1, stride=1, num_outputs=32, name="primaryCaps")
 
 			#Make Convolution Capsule Layer 1 & 2
-			convCaps1 = capsule.convCaps(primaryCaps, kernel=3, stride=2, num_outputs=32, routing=3, name="convCaps1")
-			convCaps2 = capsule.convCaps(convCaps1, kernel=3, stride=1, num_outputs=32, routing=3, name="convCaps1")
+			convCaps1 = capsule.em_convCaps(primaryCaps, kernel=3, stride=2, num_outputs=32, routing=3, name="convCaps1")
+			convCaps2 = capsule.em_convCaps(convCaps1, kernel=3, stride=1, num_outputs=32, routing=3, name="convCaps1")
 			
 			
 			input('done')

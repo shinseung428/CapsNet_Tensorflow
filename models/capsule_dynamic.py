@@ -61,19 +61,19 @@ class capsule_dynamic():
 											)			
 			
 			capsule = CapsLayer(self.batch_size)
-			caps1 = capsule.primaryCaps(conv1, 
-										kernel=9,
-										stride=2,
-										num_outputs=32,
-										vec_length=8,
-										name="primarycaps")
+			caps1 = capsule.dm_primaryCaps(conv1, 
+										   kernel=9,
+										   stride=2,
+										   num_outputs=32,
+										   vec_length=8,
+										   name="primarycaps")
 		
 
-			caps2 = capsule.digitCaps(caps1,
-									  num_outputs=self.output_dim,
-									  vec_length=16,
-									  iter_routing=3,
-									  name="digitcaps_1")
+			caps2 = capsule.dm_digitCaps(caps1,
+									     num_outputs=self.output_dim,
+									     vec_length=16,
+									     routing=3,
+									     name="digitcaps_1")
 
 			last_caps = caps2
 

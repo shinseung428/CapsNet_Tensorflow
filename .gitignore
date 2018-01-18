@@ -5,6 +5,7 @@ data/small_norb
 data/cifar_10
 
 models/*.pyc
+models/capsule_em.py
 
 graphs/
 checkpoints/
