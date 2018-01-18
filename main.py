@@ -25,16 +25,16 @@ parser = argparse.ArgumentParser(description='')
 parser.add_argument('--model', dest='model', default="capsule_dynamic", help='model type')
 
 #Image/Output setting
-parser.add_argument('--input_width', dest='input_width', default=28, help='input image width')
-parser.add_argument('--input_height', dest='input_height', default=28, help='input image height')
-parser.add_argument('--input_channel', dest='input_channel', default=1, help='input image channel')
-parser.add_argument('--output_dim', dest='output_dim', default=5, help='output dim')
+parser.add_argument('--input_width', dest='input_width', default=32, help='input image width')
+parser.add_argument('--input_height', dest='input_height', default=32, help='input image height')
+parser.add_argument('--input_channel', dest='input_channel', default=3, help='input image channel')
+parser.add_argument('--output_dim', dest='output_dim', default=10, help='output dim')
 
 #Training Settings
 parser.add_argument('--data', dest='data', default='mnist', help='cats image train path')
 parser.add_argument('--root_path', dest='root_path', default='./data/', help='cats image train path')
 
-parser.add_argument('--epochs', dest='epochs', default=5, help='total number of epochs')
+parser.add_argument('--epochs', dest='epochs', default=500, help='total number of epochs')
 parser.add_argument('--batch_size', dest='batch_size', default=64, help='batch size')
 
 parser.add_argument('--learning_rate', dest='learning_rate', default=1e-5, help='learning rate of the optimizer')
@@ -90,9 +90,10 @@ def main(_):
         if not os.path.exists(args.graph_path):
             os.makedirs(args.graph_path)
 
+        #manager performs all the training/testing
         manager = Manager(args)
 
-        if args.is_train == True:
+        if args.is_train:
             print 'Start Training...'
             manager.train(sess, model)
         else:

@@ -4,7 +4,7 @@ This repository contains different tests performed on a capsule network model.
 
 [**Test 1 : Capsule Network on mnist dataset**](#test-1-mnist---mnist)  
 [**Test 2 : Capsule Network on fashion_mnist dataset**](#test-2-fashion-mnist---fashion-mnist)  
-[**Test 3 : Capsule Network on small_norb dataset**](#test-3-small_norb---small_norb)(Currently Working)  
+[**Test 3 : Capsule Network on small_norb dataset**](#test-3-smallnorbrandom-crop---smallnorbcenter-crop)  
 [**Test 4 : Robustness of Capsule Network on randomly rotated mnist datset**](#test-4-mnist---mnistrotated)  
 [**Test 5 : Robustness of Capsule Network on affine transformation**](#test-5-mnist---affnist)  
 
@@ -85,7 +85,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=mnist
 ***Reconstructed mnist images***
 ![Alt text](images/mnist_recon.jpg?raw=true "mnist reconstructed")
 
-| Model            | Parameters | Accuracy |
+| Model            | Parameters | Test Accuracy |
 | ---------------- | ---------- | -------- |
 | baseline_network |    13.2M   |  99.03 % |
 | capsule_dynamic  |     8.2M   |  99.25 % |
@@ -108,16 +108,16 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=fashion-mnist
 ***Reconstructed fashion-mnist images***
 ![Alt text](images/fashion_mnist_recon.jpg?raw=true "fashion-mnist reconstructed") 
 
-| Model            | Parameters | Accuracy |
+| Model            | Parameters | Test Accuracy |
 | ---------------- | ---------- | -------- |
 | baseline_network |    13.2M   |  89.94%  |
 | capsule_dynamic  |     8.2M   |  89.02%  |
 
 
-Both baseline_network and capsule_dynamic network achieved about 89% accuracy on the fashion-mnist dataset. 
+Both baseline_network and capsule_dynamic networks achieved about 89% accuracy on the fashion-mnist dataset. This result was obtained after training the network for 5 epochs. Higher accuracy is expected when the network is trained more than 5 epochs. 
 
-## Test 3 (smallNORB -> smallNORB(randomly cropped))
-
+## Test 3 (smallNORB(random crop) -> smallNORB(center crop))
+**size of the input(in main.py) should be changed to 32x32 before running this test**  
 Code to run the test
 ```
 $ python main.py --model=capsule_dynamic --data=small_norb
@@ -127,10 +127,15 @@ $ python main.py --model=capsule_dynamic --data=small_norb
 $ python main.py --is_train=False --model=capsule_dynamic --data=small_norb
 ```
 
-| Model            | Parameters | Accuracy |
+***Trained randomly cropped 32x32 small_norb images***
+![Alt text](images/smallnorb_train.jpg?raw=true "smallnorb")
+***Tested center cropped 32x32 small_norb images***
+![Alt text](images/smallnorb_test.jpg?raw=true "smallnorb")
+
+| Model            | Parameters | Test Accuracy |
 | ---------------- | ---------- | -------- |
-| baseline_network |    19.3M   |    |
-| capsule_dynamic  |     8.3M   |    |
+| baseline_network |    19.3M   |  99.16%  |
+| capsule_dynamic  |     8.3M   |  99.56%  |
 
 
 
@@ -148,7 +153,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=mnist --rotate=
 ***Tested randomly rotated mnist images***
 ![Alt text](images/mnist_rotated.jpg?raw=true "rotated mnist")
 
-| Model            | Parameters | Accuracy |
+| Model            | Parameters | Test Accuracy |
 | ---------------- | ---------- | -------- |
 | baseline_network |    13.2M   |  74.10 % |
 | capsule_dynamic  |     8.2M   |  77.68 % |
@@ -173,7 +178,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=affnist
 ***Tested 40x40 affnist images***
 ![Alt text](images/affnist.jpg?raw=true "affnist") 
 
-| Model            | Parameters | Accuracy |
+| Model            | Parameters | Test Accuracy |
 | ---------------- | ---------- | -------- |
 | baseline_network |    35.4M   |  61.70 % |
 | capsule_dynamic  |    13.5M   |  75.89 % |

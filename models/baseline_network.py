@@ -22,6 +22,7 @@ class baseline_network():
 		self.learning_rate = args.learning_rate
 		self.momentum = args.momentum
 
+		#load image data X and label data Y
 		self.X, self.Y, self.data_count = load_data(args)
 		self.build_model()
 		self.build_loss()
@@ -47,6 +48,7 @@ class baseline_network():
 		self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 
+	#baseline network as described in the paper
 	def model(self, input_image, name):
 		with tf.variable_scope(name) as scope:
 			conv1 = tf.contrib.layers.conv2d(input_image, 256,
@@ -55,7 +57,7 @@ class baseline_network():
 											 activation_fn=tf.nn.relu,
 											 scope="conv1"
 											)
-			#conv1 = max_pool(conv1, 2, name="max_pool1")
+
 			conv1 = batch_norm(conv1, name="bn1")
 
 			conv2 = tf.contrib.layers.conv2d(conv1, 256,
@@ -64,7 +66,7 @@ class baseline_network():
 											 activation_fn=tf.nn.relu,
 											 scope="conv2"
 											)
-			#conv2 = max_pool(conv2, 2, name="max_pool2")
+
 			conv2 = batch_norm(conv2, name="bn2")
 
 			conv3 = tf.contrib.layers.conv2d(conv2, 128,
@@ -73,7 +75,7 @@ class baseline_network():
 											 activation_fn=tf.nn.relu,
 											 scope="conv3"
 											)	
-			#conv3 = max_pool(conv3, 2, name="max_pool3")		
+
 			conv3 = batch_norm(conv3, name="bn3")
 			
 			flattened = tf.contrib.layers.flatten(conv3)

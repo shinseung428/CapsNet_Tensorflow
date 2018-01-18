@@ -51,7 +51,7 @@ class capsule_dynamic():
 		self.trainable_vars = tf.trainable_variables()
 		print "number of parameters: ", count_param(self.trainable_vars)
 
-
+	#implementation of dynamic routing between capsules
 	def CapsNetwork(self, input_image, name):
 		with tf.variable_scope(name) as scope:
 			conv1 = tf.contrib.layers.conv2d(input_image, 256,
@@ -61,7 +61,6 @@ class capsule_dynamic():
 											)			
 			
 			capsule = CapsLayer(self.batch_size)
-			
 			caps1 = capsule.primaryCaps(conv1, 
 										kernel=9,
 										stride=2,
