@@ -5,8 +5,9 @@ This repository contains different tests performed on a capsule network model.
 [**Test 1 : Capsule Network on mnist dataset**](#test-1-mnist---mnist)  
 [**Test 2 : Capsule Network on fashion_mnist dataset**](#test-2-fashion-mnist---fashion-mnist)  
 [**Test 3 : Capsule Network on small_norb dataset**](#test-3-smallnorbrandom-crop---smallnorbcenter-crop)  
-[**Test 4 : Robustness of Capsule Network on randomly rotated mnist datset**](#test-4-mnist---mnistrotated)  
-[**Test 5 : Robustness of Capsule Network on affine transformation**](#test-5-mnist---affnist)  
+[**Test 3 : Capsule Network on cifar10 dataset**](#test-4-cifar10---cifar10)  
+[**Test 4 : Robustness of Capsule Network on randomly rotated mnist datset**](#test-5-mnist---mnistrotated)  
+[**Test 5 : Robustness of Capsule Network on affine transformation**](#test-6-mnist---affnist)  
 
 
 ## Available dataset
@@ -143,7 +144,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=small_norb
 | baseline_network |    19.3M   |  99.16%  |
 | capsule_dynamic  |     8.3M   |  99.56%  |
 
-## Test 4 (CIFAR10 -> CIFAR10)
+## Test 4 (cifar10 -> cifar10)
 **size of the input(in main.py) should be changed to 32x32 before running this test**  
 Code to run the test
 ```
@@ -165,7 +166,7 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=cifar10
 | capsule_dynamic  |    11.7M   |  69.82%  |
 
 
-## Test 4 (mnist -> mnist(rotated))
+## Test 5 (mnist -> mnist(rotated))
 Code to run the test
 ```
 $ python main.py --model=capsule_dynamic --data=mnist
@@ -190,7 +191,7 @@ The baseline_network(CNN) and capsule_dynamic(CapsNet with dynamic routing) mode
 Two models were then tested on randomly rotated(-30 to +30) mnist test set. The baseline_network achieved 74.10% accuracy and a capsule_dynamic model achieved 77.68% accuracy.
 
 
-## Test 5 (mnist -> affnist)
+## Test 6 (mnist -> affnist)
 **size of the input(in main.py) should be changed to 40x40 before running this test**  
 Code to run the test
 ```
