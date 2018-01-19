@@ -339,7 +339,7 @@ def load_data(args):
 		images, labels, data_count = affnist_reader(args, path)					
 	elif args.data == "small_norb":
 		images, labels, data_count = small_norb_reader(args, path)
-	elif args.data == "cifar_10":
+	elif args.data == "cifar10":
 		images, labels, data_count = cifar_reader(args, path)		
 	else:
 		print "Invalid dataset name!!"

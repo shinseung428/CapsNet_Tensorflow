@@ -60,11 +60,15 @@ class capsule_em():
 			capsule = CapsLayer(self.batch_size)
 
 			#Make Primary Capsule 
-			primaryCaps = capsule.em_primaryCaps(conv1, kernel=1, stride=1, num_outputs=32, name="primaryCaps")
+			primary_pose, primary_actv = capsule.em_primaryCaps(conv1, kernel=1, stride=1, num_outputs=32, name="primaryCaps")
 
 			#Make Convolution Capsule Layer 1 & 2
-			convCaps1 = capsule.em_convCaps(primaryCaps, kernel=3, stride=2, num_outputs=32, routing=3, name="convCaps1")
-			convCaps2 = capsule.em_convCaps(convCaps1, kernel=3, stride=1, num_outputs=32, routing=3, name="convCaps1")
+			convCaps1 = capsule.em_convCaps(primary_pose,
+											primary_actv, 
+											kernel=3, stride=2, 
+											num_outputs=32, routing=3, 
+											name="convCaps1")
+			# convCaps2 = capsule.em_convCaps(convCaps1, kernel=3, stride=1, num_outputs=32, routing=3, name="convCaps1")
 			
 			
 			input('done')

@@ -15,6 +15,7 @@ This repository contains different tests performed on a capsule network model.
 * [fashion_mnist](https://github.com/zalandoresearch/fashion-mnist/tree/master/data/fashion)
 * [affnist](http://www.cs.toronto.edu/~tijmen/affNIST/32x/transformed/)
 * [small_norb](https://cs.nyu.edu/~ylclab/data/norb-v1.0-small/)
+* [cifar10](https://www.cs.toronto.edu/~kriz/cifar.html)
 
 ### data folder setting
 ```
@@ -45,6 +46,11 @@ This repository contains different tests performed on a capsule network model.
     -smallnorb-5x46789x9x18x6x2x96x96-training-cat.mat
     -smallnorb-5x01235x9x18x6x2x96x96-testing-dat.mat
     -smallnorb-5x01235x9x18x6x2x96x96-testing-cat.mat
+  -cifar10
+    -batches.meta
+    -data_batch_1
+    -...
+    -test_batch
 ```
 ## Network Model
 * baseline_network (Convolutional Neural Network as described in CapsNet paper)
@@ -137,6 +143,26 @@ $ python main.py --is_train=False --model=capsule_dynamic --data=small_norb
 | baseline_network |    19.3M   |  99.16%  |
 | capsule_dynamic  |     8.3M   |  99.56%  |
 
+## Test 4 (CIFAR10 -> CIFAR10)
+**size of the input(in main.py) should be changed to 32x32 before running this test**  
+Code to run the test
+```
+$ python main.py --model=capsule_dynamic --data=cifar10
+```
+
+```
+$ python main.py --is_train=False --model=capsule_dynamic --data=cifar10
+```
+
+***Trained randomly cropped 32x32 cifar10 images***
+![Alt text](images/cifar_train.jpg?raw=true "smallnorb")
+***Tested center cropped 32x32 cifar10 images***
+![Alt text](images/cifar_test.jpg?raw=true "smallnorb")
+
+| Model            | Parameters | Test Accuracy |
+| ---------------- | ---------- | -------- |
+| baseline_network |    19.3M   |  67.42%  |
+| capsule_dynamic  |    11.7M   |  69.82%  |
 
 
 ## Test 4 (mnist -> mnist(rotated))
@@ -190,6 +216,6 @@ Comparing the baseline network with capsule network with dynamic routing shows s
 
 ## ToDo
 * Implement Matrix Capsules with EM Routing 
-* Add smallNORB dataset
+
 
 

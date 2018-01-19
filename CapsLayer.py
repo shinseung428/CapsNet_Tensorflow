@@ -48,7 +48,7 @@ class CapsLayer(object):
 			#shape of this matrix can be changed freely
 			weight = tf.get_variable("Weight", shape=[1, input.shape[1].value, out_num, input.shape[3].value, vec_len], dtype=tf.float32,
 									 initializer=tf.contrib.layers.xavier_initializer())
-									 
+			
 			#tile tensors to match dimensions
 			input = tf.tile(input, [1, 1, out_num, 1, 1])
 			weight = tf.tile(weight, [self.batch_size, 1, 1, 1, 1])
@@ -115,43 +115,34 @@ class CapsLayer(object):
 			primaryCaps = tf.reshape(primaryCaps, (self.batch_size, input.shape[1].value, input.shape[2].value, -1))
 		
 
-		return primaryCaps
+		return primaryCaps_actv, primaryCaps_actv
 
 	def em_convCaps(self,
-				 caps,
-				 kernel=3,
-				 stride=2,
-				 num_outputs=32,
-				 routing=3,
-				 name="convCaps"):
+					caps_pose,
+					caps_actv,
+					kernel=3,
+					stride=2,
+					num_outputs=32,
+					routing=3,
+					name="convCaps"):
 		with tf.variable_scope(name) as scope:
 
+			#caps_shape = [batch, w, h, 32x(4x4+1)]
+			caps_shape = caps.get_shape()#[64, 14, 14, 544]
+			
+			# caps = tf.reshape(caps, shape=[-1, 14, 14, 32, (4*4+1)])
 			print caps
-			caps_shape = caps.get_shape()
-			filter_shape = [kernel, kernel, caps_shape[3], kernel*kernel]
-			
-			#conv_filter shape = [3, 3, 544, 9]
-			conv_filter = np.zeros(shape = filter_shape, dtype=np.float32)
-			
-			for i in range(0,kernel):
-				for j in range(0,kernel):
-					conv_filter[i, j, :, i*kernel+j] = 1.0
-
-			conv_filter_op = tf.constant(conv_filter, dtype=tf.float32)
-
-			output = tf.nn.depthwise_conv2d(caps, conv_filter_op,
-											strides=[1,stride,stride,1],
-											padding="VALID"
-											)
-			print output
-			out_shape = output.get_shape()
-			output = tf.reshape(output, 
-								shape=[int(out_shape[0]), int(out_shape[1]), int(out_shape[2]), int(caps_shape[3]), kernel * kernel])
-			print output
-			output = tf.transpose(output, perm=[0, 1, 2, 4, 3])
-			print output
-
-
+			#filter shape = [kernel, kernel, 32, 32, 4, 4]
+			conv_filter = tf.get_variable("weight", 
+										  shape=[kernel, kernel, 32*4*4, 32* 4* 4], 
+										  dtype=tf.float32, 
+										  initializer=tf.contrib.layers.xavier_initializer())
+			caps = tf.nn.conv2d(caps, 
+								filter=conv_filter, 
+								strides=[1, stride, stride, 1],
+								padding="VALID",
+								name="convCaps1")
+			print caps
 			input('Done')
 			#======================================================================
 			return capsules

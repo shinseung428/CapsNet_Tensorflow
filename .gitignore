@@ -2,7 +2,7 @@ data/affnist
 data/mnist
 data/fashion_mnist
 data/small_norb
-data/cifar_10
+data/cifar10
 
 models/*.pyc
 models/capsule_em.py
