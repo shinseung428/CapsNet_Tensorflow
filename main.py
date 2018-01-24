@@ -25,9 +25,9 @@ parser = argparse.ArgumentParser(description='')
 parser.add_argument('--model', dest='model', default="capsule_dynamic", help='model type')
 
 #Image/Output setting
-parser.add_argument('--input_width', dest='input_width', default=32, help='input image width')
-parser.add_argument('--input_height', dest='input_height', default=32, help='input image height')
-parser.add_argument('--input_channel', dest='input_channel', default=3, help='input image channel')
+parser.add_argument('--input_width', dest='input_width', default=28, help='input image width')
+parser.add_argument('--input_height', dest='input_height', default=28, help='input image height')
+parser.add_argument('--input_channel', dest='input_channel', default=1, help='input image channel')
 parser.add_argument('--output_dim', dest='output_dim', default=10, help='output dim')
 
 #Training Settings
