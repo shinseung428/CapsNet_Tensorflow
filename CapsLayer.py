@@ -54,9 +54,9 @@ class CapsLayer(object):
 
 			#function like np.repeat is not implemented in tensorflow
 			weight = tf.expand_dims(weight, -1)
-			multiples = [1] + [input.shape[1]/self.primaryCaps_num, 1, 1, 1, 1]
+			multiples = [1] + [input.shape[1].value/self.primaryCaps_num, 1, 1, 1, 1]
 			weight = tf.tile(weight, multiples=multiples)
-			weight = tf.reshape(weight, [1, input.shape[1], out_num, input.shape[3].value, vec_len])
+			weight = tf.reshape(weight, [1, input.shape[1].value, out_num, input.shape[3].value, vec_len])
 			weight = tf.tile(weight, [self.batch_size, 1, 1, 1, 1])
 			
 			#tile tensors to match dimensions
